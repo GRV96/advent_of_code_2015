@@ -1,2 +1,3 @@
-# advent_of_code_2015
-Solutions to the Advent of Code 2015 puzzles
+# Advent of Code 2015
+
+Solutions to the [Advent of Code 2015](https://adventofcode.com/2015) puzzles
