@@ -6,7 +6,7 @@
 #define NB_DIMENSIONS 3
 #define MUL_SIGN 'x'
 
-int parseBoxLine(const std::string& const pBoxLine)
+void parseBoxLine(const std::string& const pBoxLine, int* pWrappingPaperArea, int* pRibbonLength)
 {
     int dimensionIndex = 0;
     int dimensions[NB_DIMENSIONS];
@@ -52,15 +52,23 @@ int parseBoxLine(const std::string& const pBoxLine)
     int boxArea = 2 * (length * width + width * height + height * length);
 
     int extraArea = 1;
+    int ribbonLength = 0;
+    int volume = 1;
     for (int i = 0; i < NB_DIMENSIONS; i++)
     {
+        int dimension = dimensions[i];
+
         if (i != longestDimensionIndex)
         {
-            extraArea *= dimensions[i];
+            extraArea *= dimension;
+            ribbonLength += 2 * dimension;
         }
+
+        volume *= dimension;
     }
 
-    return boxArea + extraArea;
+    *pWrappingPaperArea = boxArea + extraArea;
+    *pRibbonLength = ribbonLength + volume;
 }
 
 int main(int argc, char* argv[])
@@ -69,13 +77,19 @@ int main(int argc, char* argv[])
     std::ifstream inputFile(intputPath);
     std::string boxLine;
 
-    int wrappingPaperArea = 0;
+    int totalWrappingPaperArea = 0;
+    int totalRibbonLength = 0;
 
     while (inputFile.good())
     {
         std::getline(inputFile, boxLine);
-        wrappingPaperArea += parseBoxLine(boxLine);
+        int wrappingPaperArea;
+        int ribbonLength;
+        parseBoxLine(boxLine, &wrappingPaperArea, &ribbonLength);
+        totalWrappingPaperArea += wrappingPaperArea;
+        totalRibbonLength += ribbonLength;
     }
 
-    std::cout << "Puzzle 1: " << wrappingPaperArea <<"\n";
+    std::cout << "Puzzle 1: " << totalWrappingPaperArea <<"\n";
+    std::cout << "Puzzle 2: " << totalRibbonLength << "\n";
 }
