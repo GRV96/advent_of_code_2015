@@ -5,7 +5,8 @@
 #define PARENTHESIS_OPEN '('
 #define PARENTHESIS_COLSED ')'
 
-void parseInstructionLine(std::string pInstructionLine, int* pAscension, int* pBasementInstructionIndex)
+void parseInstructionLine(
+    const std::string& const pInstructionLine, int* const pAscension, int* const pBasementInstructionIndex)
 {
     *pBasementInstructionIndex = -1;
     *pAscension = 0;
