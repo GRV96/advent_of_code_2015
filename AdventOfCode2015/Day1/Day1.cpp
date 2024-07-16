@@ -5,9 +5,10 @@
 #define PARENTHESIS_OPEN '('
 #define PARENTHESIS_COLSED ')'
 
-int parseInstructionLine(std::string pInstructionLine)
+void parseInstructionLine(std::string pInstructionLine, int* pAscension, int* pBasementInstructionIndex)
 {
-    int ascension = 0;
+    *pBasementInstructionIndex = -1;
+    *pAscension = 0;
 
     int nbInstructions = pInstructionLine.length();
     for (int i = 0; i < nbInstructions; i++)
@@ -16,15 +17,18 @@ int parseInstructionLine(std::string pInstructionLine)
 
         if (instruction == PARENTHESIS_OPEN)
         {
-            ascension++;
+            (*pAscension)++;
         }
         else if (instruction == PARENTHESIS_COLSED)
         {
-            ascension--;
+            (*pAscension)--;
+        }
+
+        if (*pBasementInstructionIndex < 0 && *pAscension == -1)
+        {
+            *pBasementInstructionIndex = i;
         }
     }
-
-    return ascension;
 }
 
 int main(int argc, char* argv[])
@@ -34,11 +38,21 @@ int main(int argc, char* argv[])
     std::string instructionLine;
     int ascension = 0;
 
+    // Position of the first instruction to enter the basement
+    int basementInstructionPosition = -1;
+
     while (inputFile.good())
     {
+        int basementPositionIndex;
         std::getline(inputFile, instructionLine);
-        ascension += parseInstructionLine(instructionLine);
+        parseInstructionLine(instructionLine, &ascension, &basementPositionIndex);
+
+        if (basementInstructionPosition < 0)
+        {
+            basementInstructionPosition = basementPositionIndex + 1;
+        }
     }
 
     std::cout << "Puzzle 1: " << ascension << "\n";
+    std::cout << "Puzzle 2: " << basementInstructionPosition << "\n";
 }
