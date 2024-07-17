@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Coordinates.h"
+class Coordinates;
 
 class House
 {

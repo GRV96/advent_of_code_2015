@@ -20,4 +20,3 @@ public:
 
 	bool operator ==(const Coordinates& const pOther) const;
 };
-

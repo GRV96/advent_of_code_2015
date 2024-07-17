@@ -1,4 +1,5 @@
 #include "House.h"
+#include "Coordinates.h"
 
 House::House(int pX, int pY)
 {
@@ -14,7 +15,7 @@ House::House(const Coordinates& const pCoordinates)
 
 House::~House()
 {
-	delete _coordinates;
+	//delete _coordinates; // ERROR!
 }
 
 void House::dropPresent()
