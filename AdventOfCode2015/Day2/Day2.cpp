@@ -13,13 +13,13 @@ void parseBoxLine(const std::string& const pBoxLine, int* pWrappingPaperArea, in
 
     int i = 0;
     int boxLineLength = pBoxLine.length();
-    bool isEndReached = false;
+    int lastIndex = boxLineLength - 1;
     int substrStartIndex = 0;
     int longestDimension = INT_MIN;
     int longestDimensionIndex = -1;
     while (true)
     {
-        isEndReached = i >= boxLineLength;
+        bool isEndReached = i >= lastIndex;
         char digit = pBoxLine[i];
 
         if (digit == MUL_SIGN || isEndReached)
@@ -90,6 +90,6 @@ int main(int argc, char* argv[])
         totalRibbonLength += ribbonLength;
     }
 
-    std::cout << "Puzzle 1: " << totalWrappingPaperArea <<"\n";
+    std::cout << "Puzzle 1: " << totalWrappingPaperArea << "\n";
     std::cout << "Puzzle 2: " << totalRibbonLength << "\n";
 }
