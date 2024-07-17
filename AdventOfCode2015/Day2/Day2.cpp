@@ -1,7 +1,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
 
 #define NB_DIMENSIONS 3
 #define MUL_SIGN 'x'
