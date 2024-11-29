@@ -1,39 +1,14 @@
 #include <fstream>
 #include <iostream>
+#include <set>
 #include <string>
-#include <vector>
 
 #include "Coordinates.h"
-#include "House.h"
 
 #define NORTH '^'
 #define SOUTH 'v'
 #define EAST '>'
 #define WEST '<'
-
-void dropPresent(std::vector<House>& pTrajectory, const Coordinates& const pCoordinates)
-{
-    bool wasHouseFound = false;
-
-    for (std::vector<House>::iterator it = pTrajectory.begin(); it != pTrajectory.end(); it++)
-    {
-        House house = *it;
-
-        if (house.hasCoordinates(pCoordinates))
-        {
-            wasHouseFound = true;
-            house.dropPresent();
-            break;
-        }
-    }
-
-    if (!wasHouseFound)
-    {
-        House newHouse(pCoordinates);
-        newHouse.dropPresent();
-        pTrajectory.push_back(newHouse);
-    }
-}
 
 int main(int argc, char* argv[])
 {
@@ -42,10 +17,9 @@ int main(int argc, char* argv[])
     std::string inputLine;
     std::getline(inputFile, inputLine);
 
-    Coordinates position(0, 0);
-    House firstHouse(position);
-    firstHouse.dropPresent();
-    std::vector<House> trajectory = { firstHouse };
+    int positionX = 0;
+    int positionY = 0;
+    std::set<Coordinates, CoordsLessThan> trajectory {Coordinates(positionX, positionY)};
 
     for (std::string::iterator it = inputLine.begin(); it != inputLine.end(); it++)
     {
@@ -53,22 +27,22 @@ int main(int argc, char* argv[])
         switch (direction)
         {
         case NORTH:
-            position.moveY(1);
+            positionY++;
             break;
         case SOUTH:
-            position.moveY(-1);
+            positionY--;
             break;
         case EAST:
-            position.moveX(1);
+            positionX++;
             break;
         case WEST:
-            position.moveX(-1);
+            positionX--;
             break;
         }
 
-        dropPresent(trajectory, position);
+        Coordinates nextPosition(positionX, positionY);
+        trajectory.insert(nextPosition);
     }
-
     int nbHouses = trajectory.size();
 
     std::cout << "Puzzle 1: " << nbHouses << '\n';

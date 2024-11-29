@@ -6,7 +6,7 @@ Coordinates::Coordinates(int pX, int pY)
 	_y = pY;
 }
 
-Coordinates::Coordinates(const Coordinates& const pOther)
+Coordinates::Coordinates(const Coordinates& pOther)
 {
 	_x = pOther._x;
 	_y = pOther._y;
@@ -27,17 +27,26 @@ bool Coordinates::hasValues(int pX, int pY) const
 	return _x == pX && _y == pY;
 }
 
-void Coordinates::moveX(int pDeltaX)
+bool Coordinates::operator ==(const Coordinates& pOther) const
 {
-	_x += pDeltaX;
+	return hasValues(pOther._x, pOther._y);
 }
 
-void Coordinates::moveY(int pDeltaY)
+bool Coordinates::operator !=(const Coordinates& pOther) const
 {
-	_y += pDeltaY;
+	return !hasValues(pOther._x, pOther._y);
 }
 
-bool Coordinates::operator ==(const Coordinates& const pOther) const
+bool Coordinates::operator <(const Coordinates& pOther) const
 {
-	return _x == pOther._x && _y == pOther._y;
+	/*
+	 * This operator is implemented so that Coordinates
+	 * instances can be used as a map's keys.
+	 * 
+	 * The greater _x and _y are, the greater the instance is.
+	 */
+	int deltaX = pOther._x - _x;
+	int deltaY = pOther._y - _y;
+	bool thisIsLess = deltaY > -deltaX; // This variable helps debugging.
+	return thisIsLess;
 }

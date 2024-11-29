@@ -8,15 +8,22 @@ private:
 
 public:
 	Coordinates(int pX, int pY);
-	Coordinates(const Coordinates& const pOther);
+	Coordinates(const Coordinates& pOther);
 
 	int getX() const;
 	int getY() const;
 
 	bool hasValues(int pX, int pY) const;
 
-	void moveX(int pDeltaX);
-	void moveY(int pDeltaY);
+	bool operator ==(const Coordinates& pOther) const;
+	bool operator !=(const Coordinates& pOther) const;
+	bool operator <(const Coordinates& pOther) const;
+};
 
-	bool operator ==(const Coordinates& const pOther) const;
+struct CoordsLessThan
+{
+	bool operator ()(const Coordinates& pC1, const Coordinates& pC2) const
+	{
+		return pC1 < pC2;
+	}
 };
