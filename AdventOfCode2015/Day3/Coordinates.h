@@ -17,13 +17,4 @@ public:
 
 	bool operator ==(const Coordinates& pOther) const;
 	bool operator !=(const Coordinates& pOther) const;
-	bool operator <(const Coordinates& pOther) const;
-};
-
-struct CoordsLessThan
-{
-	bool operator ()(const Coordinates& pC1, const Coordinates& pC2) const
-	{
-		return pC1 < pC2;
-	}
 };

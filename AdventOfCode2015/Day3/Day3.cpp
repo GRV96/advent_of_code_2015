@@ -1,7 +1,8 @@
+#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <set>
 #include <string>
+#include <vector>
 
 #include "Coordinates.h"
 
@@ -9,6 +10,15 @@
 #define SOUTH 'v'
 #define EAST '>'
 #define WEST '<'
+
+void addPositionToTrajectory(std::vector<Coordinates>& pTrajectory, const Coordinates& pPosition)
+{
+    if (std::find(pTrajectory.begin(), pTrajectory.end(), pPosition) == pTrajectory.end())
+    {
+        // The position is not in the trajectory.
+        pTrajectory.push_back(pPosition);
+    }
+}
 
 int main(int argc, char* argv[])
 {
@@ -19,7 +29,7 @@ int main(int argc, char* argv[])
 
     int positionX = 0;
     int positionY = 0;
-    std::set<Coordinates, CoordsLessThan> trajectory {Coordinates(positionX, positionY)};
+    std::vector<Coordinates> trajectory {Coordinates(positionX, positionY)};
 
     for (std::string::iterator it = inputLine.begin(); it != inputLine.end(); it++)
     {
@@ -41,7 +51,7 @@ int main(int argc, char* argv[])
         }
 
         Coordinates nextPosition(positionX, positionY);
-        trajectory.insert(nextPosition);
+        addPositionToTrajectory(trajectory, nextPosition);
     }
     int nbHouses = trajectory.size();
 
