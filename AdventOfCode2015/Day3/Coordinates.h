@@ -9,6 +9,7 @@ private:
 public:
 	Coordinates(int pX, int pY);
 	Coordinates(const Coordinates& pOther);
+	Coordinates(const Coordinates&& pOther) noexcept;
 
 	int getX() const;
 	int getY() const;
@@ -17,4 +18,7 @@ public:
 
 	bool operator ==(const Coordinates& pOther) const;
 	bool operator !=(const Coordinates& pOther) const;
+
+	Coordinates& operator=(Coordinates& pOther);
+	Coordinates& operator=(Coordinates&& pOther) noexcept;
 };

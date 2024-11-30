@@ -10,6 +10,11 @@ Coordinates::Coordinates(const Coordinates& pOther) :
 	_y(pOther._y)
 {}
 
+Coordinates::Coordinates(const Coordinates&& pOther) noexcept :
+	_x(pOther._x),
+	_y(pOther._y)
+{}
+
 int Coordinates::getX() const
 {
 	return _x;
@@ -33,4 +38,30 @@ bool Coordinates::operator ==(const Coordinates& pOther) const
 bool Coordinates::operator !=(const Coordinates& pOther) const
 {
 	return !hasValues(pOther._x, pOther._y);
+}
+
+Coordinates& Coordinates::operator=(Coordinates& pOther)
+{
+	if (this == &pOther)
+	{
+		return *this;
+	}
+
+	_x = pOther._x;
+	_y = pOther._y;
+
+	return *this;
+}
+
+Coordinates& Coordinates::operator=(Coordinates&& pOther) noexcept
+{
+	if (this == &pOther)
+	{
+		return *this;
+	}
+
+	_x = pOther._x;
+	_y = pOther._y;
+
+	return *this;
 }

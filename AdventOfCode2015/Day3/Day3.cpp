@@ -33,9 +33,6 @@ int main(int argc, char* argv[])
     Coordinates startPosition(positionX, positionY);
     std::vector<Coordinates> trajectory {startPosition};
 
-    House h1(positionX, positionY);
-    House h2(startPosition);
-
     for (std::string::iterator it = inputLine.begin(); it != inputLine.end(); it++)
     {
         char direction = *it;
