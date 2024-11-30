@@ -16,6 +16,9 @@ public:
 
 	bool hasValues(int pX, int pY) const;
 
+	void moveX(int pDeltaX);
+	void moveY(int pDeltaY);
+
 	bool operator ==(const Coordinates& pOther) const;
 	bool operator !=(const Coordinates& pOther) const;
 

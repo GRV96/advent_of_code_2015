@@ -28,34 +28,46 @@ int main(int argc, char* argv[])
     std::string inputLine;
     std::getline(inputFile, inputLine);
 
-    int positionX = 0;
-    int positionY = 0;
-    Coordinates startPosition(positionX, positionY);
-    std::vector<Coordinates> trajectory {startPosition};
+    Coordinates puzzle1Position(0, 0);
+    Coordinates santaPosition = puzzle1Position;
+    Coordinates roboSantaPosition = puzzle1Position;
 
+    std::vector<Coordinates> puzzle1Positions{ puzzle1Position };
+    std::vector<Coordinates> puzzle2Positions{ puzzle1Position };
+
+    int nbInstructions = 0;
     for (std::string::iterator it = inputLine.begin(); it != inputLine.end(); it++)
     {
+        // Santa moves first.
+        Coordinates& puzzle2Position =
+            nbInstructions % 2 == 1 ? santaPosition : roboSantaPosition;
+
         char direction = *it;
+        nbInstructions++;
         switch (direction)
         {
         case NORTH:
-            positionY++;
+            puzzle1Position.moveY(1);
+            puzzle2Position.moveY(1);
             break;
         case SOUTH:
-            positionY--;
+            puzzle1Position.moveY(-1);
+            puzzle2Position.moveY(-1);
             break;
         case EAST:
-            positionX++;
+            puzzle1Position.moveX(1);
+            puzzle2Position.moveX(1);
             break;
         case WEST:
-            positionX--;
+            puzzle1Position.moveX(-1);
+            puzzle2Position.moveX(-1);
             break;
         }
 
-        Coordinates nextPosition(positionX, positionY);
-        addPositionToTrajectory(trajectory, nextPosition);
+        addPositionToTrajectory(puzzle1Positions, puzzle1Position);
+        addPositionToTrajectory(puzzle2Positions, puzzle2Position);
     }
-    int nbHouses = trajectory.size();
 
-    std::cout << "Puzzle 1: " << nbHouses << '\n';
+    std::cout << "Puzzle 1: " << puzzle1Positions.size() << '\n';
+    std::cout << "Puzzle 2: " << puzzle2Positions.size() << '\n';
 }

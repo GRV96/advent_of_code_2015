@@ -30,6 +30,16 @@ bool Coordinates::hasValues(int pX, int pY) const
 	return _x == pX && _y == pY;
 }
 
+void Coordinates::moveX(int pDeltaX)
+{
+	_x += pDeltaX;
+}
+
+void Coordinates::moveY(int pDeltaY)
+{
+	_y += pDeltaY;
+}
+
 bool Coordinates::operator ==(const Coordinates& pOther) const
 {
 	return hasValues(pOther._x, pOther._y);
