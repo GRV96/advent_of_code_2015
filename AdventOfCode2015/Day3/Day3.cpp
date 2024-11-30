@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Coordinates.h"
+#include "House.h"
 
 #define NORTH '^'
 #define SOUTH 'v'
@@ -30,6 +31,7 @@ int main(int argc, char* argv[])
     int positionX = 0;
     int positionY = 0;
     std::vector<Coordinates> trajectory {Coordinates(positionX, positionY)};
+    House h(positionX, positionY);
 
     for (std::string::iterator it = inputLine.begin(); it != inputLine.end(); it++)
     {

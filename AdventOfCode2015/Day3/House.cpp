@@ -7,7 +7,7 @@ House::House(int pX, int pY)
 	_coordinates = new Coordinates(pX, pY);
 }
 
-House::House(const Coordinates& const pCoordinates)
+House::House(const Coordinates& pCoordinates)
 {
 	_nbPresents = 0;
 	_coordinates = new Coordinates(pCoordinates);
@@ -15,7 +15,7 @@ House::House(const Coordinates& const pCoordinates)
 
 House::~House()
 {
-	//delete _coordinates; // ERROR!
+	delete _coordinates;
 }
 
 void House::dropPresent()
@@ -33,7 +33,7 @@ bool House::hasCoordinates(int pX, int pY) const
 	return _coordinates->hasValues(pX, pY);
 }
 
-bool House::hasCoordinates(const Coordinates& const pCoordinates) const
+bool House::hasCoordinates(const Coordinates& pCoordinates) const
 {
 	return (*_coordinates) == pCoordinates;
 }

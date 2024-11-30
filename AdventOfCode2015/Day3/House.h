@@ -10,12 +10,12 @@ private:
 
 public:
 	House(int pX, int pY);
-	House(const Coordinates& const pCoordinates);
+	House(const Coordinates& pCoordinates);
 	~House();
 
 	void dropPresent();
 	int getNbPresents() const;
 
 	bool hasCoordinates(int pX, int pY) const;
-	bool hasCoordinates(const Coordinates& const pCoordinates) const;
+	bool hasCoordinates(const Coordinates& pCoordinates) const;
 };
