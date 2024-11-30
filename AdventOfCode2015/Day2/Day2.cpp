@@ -5,7 +5,7 @@
 #define NB_DIMENSIONS 3
 #define MUL_SIGN 'x'
 
-void parseBoxLine(const std::string& pBoxLine, int* pWrappingPaperArea, int* pRibbonLength)
+void parseBoxLine(const std::string& pBoxLine, int& pWrappingPaperArea, int& pRibbonLength)
 {
     int dimensionIndex = 0;
     int dimensions[NB_DIMENSIONS];
@@ -66,8 +66,8 @@ void parseBoxLine(const std::string& pBoxLine, int* pWrappingPaperArea, int* pRi
         volume *= dimension;
     }
 
-    *pWrappingPaperArea = boxArea + extraArea;
-    *pRibbonLength = ribbonLength + volume;
+    pWrappingPaperArea = boxArea + extraArea;
+    pRibbonLength = ribbonLength + volume;
 }
 
 int main(int argc, char* argv[])
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
         std::getline(inputFile, boxLine);
         int wrappingPaperArea;
         int ribbonLength;
-        parseBoxLine(boxLine, &wrappingPaperArea, &ribbonLength);
+        parseBoxLine(boxLine, wrappingPaperArea, ribbonLength);
         totalWrappingPaperArea += wrappingPaperArea;
         totalRibbonLength += ribbonLength;
     }
