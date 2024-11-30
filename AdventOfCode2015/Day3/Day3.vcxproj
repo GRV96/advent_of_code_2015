@@ -129,14 +129,12 @@
   <ItemGroup>
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Day3.cpp" />
-    <ClCompile Include="House.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Day3Puzzle.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinates.h" />
-    <ClInclude Include="House.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

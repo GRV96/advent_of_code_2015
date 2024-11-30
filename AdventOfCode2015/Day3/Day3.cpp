@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "Coordinates.h"
-#include "House.h"
 
 #define NORTH '^'
 #define SOUTH 'v'
