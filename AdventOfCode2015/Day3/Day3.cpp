@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     {
         // Santa moves first.
         Coordinates& puzzle2Position =
-            nbInstructions % 2 == 1 ? santaPosition : roboSantaPosition;
+            nbInstructions % 2 == 0 ? santaPosition : roboSantaPosition;
 
         char direction = *it;
         nbInstructions++;
