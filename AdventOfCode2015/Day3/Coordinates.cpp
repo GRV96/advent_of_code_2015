@@ -1,16 +1,14 @@
 #include "Coordinates.h"
 
-Coordinates::Coordinates(int pX, int pY)
-{
-	_x = pX;
-	_y = pY;
-}
+Coordinates::Coordinates(int pX, int pY) :
+	_x(pX),
+	_y(pY)
+{}
 
-Coordinates::Coordinates(const Coordinates& pOther)
-{
-	_x = pOther._x;
-	_y = pOther._y;
-}
+Coordinates::Coordinates(const Coordinates& pOther) :
+	_x(pOther._x),
+	_y(pOther._y)
+{}
 
 int Coordinates::getX() const
 {

@@ -1,17 +1,15 @@
 #include "House.h"
 #include "Coordinates.h"
 
-House::House(int pX, int pY)
-{
-	_nbPresents = 0;
-	_coordinates = new Coordinates(pX, pY);
-}
+House::House(int pX, int pY) :
+	_nbPresents(0),
+	_coordinates(new Coordinates(pX, pY))
+{}
 
-House::House(const Coordinates& pCoordinates)
-{
-	_nbPresents = 0;
-	_coordinates = new Coordinates(pCoordinates);
-}
+House::House(const Coordinates& pCoordinates) :
+	_nbPresents(0),
+	_coordinates(new Coordinates(pCoordinates))
+{}
 
 House::~House()
 {
