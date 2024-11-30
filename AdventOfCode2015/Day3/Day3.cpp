@@ -1,8 +1,7 @@
-#include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <set>
 #include <string>
-#include <vector>
 
 #include "Coordinates.h"
 
@@ -10,15 +9,6 @@
 #define SOUTH 'v'
 #define EAST '>'
 #define WEST '<'
-
-void addPositionToTrajectory(std::vector<Coordinates>& pTrajectory, const Coordinates& pPosition)
-{
-    if (std::find(pTrajectory.begin(), pTrajectory.end(), pPosition) == pTrajectory.end())
-    {
-        // The position is not in the trajectory.
-        pTrajectory.push_back(pPosition);
-    }
-}
 
 int main(int argc, char* argv[])
 {
@@ -31,8 +21,8 @@ int main(int argc, char* argv[])
     Coordinates santaPosition = puzzle1Position;
     Coordinates roboSantaPosition = puzzle1Position;
 
-    std::vector<Coordinates> puzzle1Positions{ puzzle1Position };
-    std::vector<Coordinates> puzzle2Positions{ puzzle1Position };
+    std::set<Coordinates> puzzle1Positions{ puzzle1Position };
+    std::set<Coordinates> puzzle2Positions{ puzzle1Position };
 
     int nbInstructions = 0;
     for (std::string::iterator it = inputLine.begin(); it != inputLine.end(); it++)
@@ -63,8 +53,8 @@ int main(int argc, char* argv[])
             break;
         }
 
-        addPositionToTrajectory(puzzle1Positions, puzzle1Position);
-        addPositionToTrajectory(puzzle2Positions, puzzle2Position);
+        puzzle1Positions.insert(puzzle1Position);
+        puzzle2Positions.insert(puzzle2Position);
     }
 
     std::cout << "Puzzle 1: " << puzzle1Positions.size() << '\n';
