@@ -5,7 +5,7 @@
 #define NB_DIMENSIONS 3
 #define MUL_SIGN 'x'
 
-void parseBoxLine(const std::string& const pBoxLine, int* pWrappingPaperArea, int* pRibbonLength)
+void parseBoxLine(const std::string& pBoxLine, int* pWrappingPaperArea, int* pRibbonLength)
 {
     int dimensionIndex = 0;
     int dimensions[NB_DIMENSIONS];
