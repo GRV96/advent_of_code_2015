@@ -51,6 +51,11 @@ char CharPair::getEndIndex() const
 	return _endIndex;
 }
 
+char CharPair::identicalChar() const
+{
+	return _firstChar == _secondChar ? _firstChar : '\0';
+}
+
 bool CharPair::overlapsWith(const CharPair& pOther) const
 {
 	return abs(_startIndex - pOther._startIndex) < 2;

@@ -6,13 +6,22 @@
 
 #include "CharPair.h"
 
-const std::vector<std::string> illegalSubstrings{ "ab", "cd", "pq", "xy" };
+const char NULL_CHAR = '\0';
+
+const std::vector<std::string> ILLEGAL_SUBSTRINGS{ "ab", "cd", "pq", "xy" };
 
 struct CharPairSetAdmission
 {
     bool operator ()(const CharPair& pPair1, const CharPair& pPair2) const
     {
-        return pPair1 < pPair2 && !pPair1.overlapsWith(pPair2);
+        char identicalLetter1 = pPair1.identicalChar();
+
+        bool identicalPairsOverlap =
+            identicalLetter1 != NULL_CHAR
+            && identicalLetter1 == pPair2.identicalChar()
+            && pPair1.overlapsWith(pPair2);
+
+        return pPair1 < pPair2 && !identicalPairsOverlap;
     }
 };
 
@@ -58,8 +67,8 @@ bool isStringNicePuzzle1(const std::string& pEvaluatedStr)
 
             auto isSubstringLegal = [letter, nextLetter](std::string pIllegalSubstring)
                 -> bool {return pIllegalSubstring.at(0) == letter && pIllegalSubstring.at(1) == nextLetter;};
-            if (std::find_if(illegalSubstrings.begin(), illegalSubstrings.end(), isSubstringLegal)
-                != illegalSubstrings.end())
+            if (std::find_if(ILLEGAL_SUBSTRINGS.begin(), ILLEGAL_SUBSTRINGS.end(), isSubstringLegal)
+                != ILLEGAL_SUBSTRINGS.end())
             {
                 return false;
             }

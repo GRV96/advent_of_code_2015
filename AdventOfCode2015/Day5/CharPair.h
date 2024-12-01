@@ -22,6 +22,8 @@ public:
 	char getStartIndex() const;
 	char getEndIndex() const;
 
+	char identicalChar() const;
+
 	bool overlapsWith(const CharPair& pOther) const;
 
 	bool operator <(const CharPair& pOther) const;
