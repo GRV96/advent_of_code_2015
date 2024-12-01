@@ -5,13 +5,15 @@
 #include <string>
 #include <vector>
 
+#define NULL_CHAR '\0'
+
 const std::vector<std::string> illegalSubstrings{ "ab", "cd", "pq", "xy" };
 
 char identicalCharacter(const std::string& pSomeString)
 {
     if (pSomeString.size() == 0)
     {
-        return '\0';
+        return NULL_CHAR;
     }
 
     char firstLetter = pSomeString.at(0);
@@ -98,10 +100,10 @@ bool isStringNicePuzzle2(const std::string& pEvaluatedStr)
         if (i <= pairIndexBound && !wasIdenticalPairFound)
         {
             std::string letterPair = pEvaluatedStr.substr(i, 2);
-            char letterAfterPair = trioIndexCheck ? pEvaluatedStr.at(i + 2) : '\0';
+            char letterBeforePair = i > 0 ? pEvaluatedStr.at(i - 1) : NULL_CHAR;
 
             char identicalLetter = identicalCharacter(letterPair);
-            if (identicalLetter != letterAfterPair || letterAfterPair != '\0')
+            if (identicalLetter == NULL_CHAR || identicalLetter != letterBeforePair)
             {
                 // If the set already contains the value, second is false.
                 wasIdenticalPairFound = !letterPairs.insert(letterPair).second;
