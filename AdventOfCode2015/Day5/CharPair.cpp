@@ -53,6 +53,11 @@ char CharPair::getEndIndex() const
 	return _endIndex;
 }
 
+bool CharPair::hasChars(char pFirstChar, char pSecondChar) const
+{
+	return _firstChar == pFirstChar && _secondChar == pSecondChar;
+}
+
 char CharPair::identicalChar() const
 {
 	return _firstChar == _secondChar ? _firstChar : NULL_CHAR;
@@ -70,6 +75,11 @@ bool CharPair::identicalPairsOverlap(const CharPair& pPair1, const CharPair& pPa
 bool CharPair::overlapsWith(const CharPair& pOther) const
 {
 	return abs(_startIndex - pOther._startIndex) < 2;
+}
+
+bool CharPair::operator ==(const CharPair& pOther) const
+{
+	return hasChars(pOther._firstChar, pOther._secondChar);
 }
 
 bool CharPair::operator <(const CharPair& pOther) const

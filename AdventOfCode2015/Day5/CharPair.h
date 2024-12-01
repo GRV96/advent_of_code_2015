@@ -22,12 +22,15 @@ public:
 	char getStartIndex() const;
 	char getEndIndex() const;
 
+	bool hasChars(char pFirstChar, char pSecondChar) const;
+
 	char identicalChar() const;
 
 	static bool identicalPairsOverlap(const CharPair& pPair1, const CharPair& pPair2);
 
 	bool overlapsWith(const CharPair& pOther) const;
 
+	bool operator ==(const CharPair& pOther) const;
 	bool operator <(const CharPair& pOther) const;
 
 	CharPair& operator =(const CharPair& pOther);

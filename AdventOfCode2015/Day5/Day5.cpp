@@ -8,14 +8,6 @@
 
 const std::vector<std::string> ILLEGAL_SUBSTRINGS{ "ab", "cd", "pq", "xy" };
 
-struct CharPairSetAdmission
-{
-    bool operator ()(const CharPair& pPair1, const CharPair& pPair2) const
-    {
-        return pPair1 < pPair2 && !CharPair::identicalPairsOverlap(pPair1, pPair2);
-    }
-};
-
 bool isVowel(const char pSomeChar)
 {
     return pSomeChar == 'a'
@@ -73,7 +65,7 @@ bool isStringNicePuzzle1(const std::string& pEvaluatedStr)
 
 bool isStringNicePuzzle2(const std::string& pEvaluatedStr)
 {
-    std::set<CharPair, CharPairSetAdmission> letterPairs;
+    std::set<CharPair> letterPairs;
     bool wasIdenticalPairFound = false;
     bool wasTrioFound = false;
 
@@ -88,8 +80,15 @@ bool isStringNicePuzzle2(const std::string& pEvaluatedStr)
         {
             CharPair letterPair(pEvaluatedStr.at(i), pEvaluatedStr.at(i + 1), i);
 
-            // If the set already contains the value, second is false.
-            wasIdenticalPairFound = !letterPairs.insert(letterPair).second;
+            std::pair<std::set<CharPair>::iterator, bool> insertionRestult = letterPairs.insert(letterPair);
+            wasIdenticalPairFound = !insertionRestult.second;
+
+            if (wasIdenticalPairFound)
+            {
+                CharPair equalPair = *(insertionRestult.first);
+                // Identical pairs invalid if they overlap
+                wasIdenticalPairFound = !CharPair::identicalPairsOverlap(letterPair, equalPair);
+            }
         }
 
         if (trioIndexCheck && !wasTrioFound)
