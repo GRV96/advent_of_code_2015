@@ -6,22 +6,13 @@
 
 #include "CharPair.h"
 
-const char NULL_CHAR = '\0';
-
 const std::vector<std::string> ILLEGAL_SUBSTRINGS{ "ab", "cd", "pq", "xy" };
 
 struct CharPairSetAdmission
 {
     bool operator ()(const CharPair& pPair1, const CharPair& pPair2) const
     {
-        char identicalLetter1 = pPair1.identicalChar();
-
-        bool identicalPairsOverlap =
-            identicalLetter1 != NULL_CHAR
-            && identicalLetter1 == pPair2.identicalChar()
-            && pPair1.overlapsWith(pPair2);
-
-        return pPair1 < pPair2 && !identicalPairsOverlap;
+        return pPair1 < pPair2 && !CharPair::identicalPairsOverlap(pPair1, pPair2);
     }
 };
 

@@ -2,6 +2,8 @@
 
 #include "CharPair.h"
 
+const char NULL_CHAR = '\0';
+
 void CharPair::copyValues(const CharPair& pSource)
 {
 	_firstChar = pSource._firstChar;
@@ -53,7 +55,16 @@ char CharPair::getEndIndex() const
 
 char CharPair::identicalChar() const
 {
-	return _firstChar == _secondChar ? _firstChar : '\0';
+	return _firstChar == _secondChar ? _firstChar : NULL_CHAR;
+}
+
+bool CharPair::identicalPairsOverlap(const CharPair& pPair1, const CharPair& pPair2)
+{
+	char identicalLetter1 = pPair1.identicalChar();
+
+	return identicalLetter1 != NULL_CHAR
+		&& identicalLetter1 == pPair2.identicalChar()
+		&& pPair1.overlapsWith(pPair2);
 }
 
 bool CharPair::overlapsWith(const CharPair& pOther) const

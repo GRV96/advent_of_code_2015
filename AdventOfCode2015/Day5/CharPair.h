@@ -24,6 +24,8 @@ public:
 
 	char identicalChar() const;
 
+	static bool identicalPairsOverlap(const CharPair& pPair1, const CharPair& pPair2);
+
 	bool overlapsWith(const CharPair& pOther) const;
 
 	bool operator <(const CharPair& pOther) const;
