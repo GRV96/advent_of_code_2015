@@ -7,6 +7,26 @@
 
 const std::vector<std::string> illegalSubstrings{ "ab", "cd", "pq", "xy" };
 
+char identicalCharacter(const std::string& pSomeString)
+{
+    if (pSomeString.size() == 0)
+    {
+        return '\0';
+    }
+
+    char firstLetter = pSomeString.at(0);
+
+    for (std::string::const_iterator it = pSomeString.begin(); it != pSomeString.end(); it++)
+    {
+        if (*it != firstLetter)
+        {
+            return '\0';
+        }
+    }
+
+    return firstLetter;
+}
+
 bool isVowel(const char pSomeChar)
 {
     return pSomeChar == 'a'
@@ -73,14 +93,23 @@ bool isStringNicePuzzle2(const std::string& pEvaluatedStr)
     int trioIndexBound = strLength - 3;
     for (int i = 0; i < strLength; i++)
     {
+        bool trioIndexCheck = i <= trioIndexBound;
+
         if (i <= pairIndexBound && !wasIdenticalPairFound)
         {
-            // If the set already contains the value, second is false.
             std::string letterPair = pEvaluatedStr.substr(i, 2);
-            wasIdenticalPairFound = !letterPairs.insert(letterPair).second;
+            char letterAfterPair = trioIndexCheck ? pEvaluatedStr.at(i + 2) : '\0';
+
+            char identicalLetter = identicalCharacter(letterPair);
+            if (identicalLetter != letterAfterPair || letterAfterPair != '\0')
+            {
+                // If the set already contains the value, second is false.
+                wasIdenticalPairFound = !letterPairs.insert(letterPair).second;
+            }
+            // Else, two pairs of identical characters overlap.
         }
 
-        if (i <= trioIndexBound && !wasTrioFound)
+        if (trioIndexCheck && !wasTrioFound)
         {
             wasTrioFound = pEvaluatedStr.at(i) == pEvaluatedStr.at(i + 2);
         }
