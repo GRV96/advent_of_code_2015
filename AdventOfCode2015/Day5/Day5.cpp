@@ -4,29 +4,17 @@
 #include <string>
 #include <vector>
 
-#define NULL_CHAR '\0'
+#include "CharPair.h"
 
 const std::vector<std::string> illegalSubstrings{ "ab", "cd", "pq", "xy" };
 
-char identicalCharacter(const std::string& pSomeString)
+struct CharPairSetAdmission
 {
-    if (pSomeString.size() == 0)
+    bool operator ()(const CharPair& pPair1, const CharPair& pPair2) const
     {
-        return NULL_CHAR;
+        return pPair1 < pPair2 && !pPair1.overlapsWith(pPair2);
     }
-
-    char firstLetter = pSomeString.at(0);
-
-    for (std::string::const_iterator it = pSomeString.begin(); it != pSomeString.end(); it++)
-    {
-        if (*it != firstLetter)
-        {
-            return '\0';
-        }
-    }
-
-    return firstLetter;
-}
+};
 
 bool isVowel(const char pSomeChar)
 {
@@ -85,7 +73,7 @@ bool isStringNicePuzzle1(const std::string& pEvaluatedStr)
 
 bool isStringNicePuzzle2(const std::string& pEvaluatedStr)
 {
-    std::set<std::string> letterPairs;
+    std::set<CharPair, CharPairSetAdmission> letterPairs;
     bool wasIdenticalPairFound = false;
     bool wasTrioFound = false;
 
@@ -98,16 +86,10 @@ bool isStringNicePuzzle2(const std::string& pEvaluatedStr)
 
         if (i <= pairIndexBound && !wasIdenticalPairFound)
         {
-            std::string letterPair = pEvaluatedStr.substr(i, 2);
-            char letterBeforePair = i > 0 ? pEvaluatedStr.at(i - 1) : NULL_CHAR;
+            CharPair letterPair(pEvaluatedStr.at(i), pEvaluatedStr.at(i + 1), i);
 
-            char identicalLetter = identicalCharacter(letterPair);
-            if (identicalLetter == NULL_CHAR || identicalLetter != letterBeforePair)
-            {
-                // If the set already contains the value, second is false.
-                wasIdenticalPairFound = !letterPairs.insert(letterPair).second;
-            }
-            // Else, two pairs of identical characters overlap.
+            // If the set already contains the value, second is false.
+            wasIdenticalPairFound = !letterPairs.insert(letterPair).second;
         }
 
         if (trioIndexCheck && !wasTrioFound)
