@@ -46,8 +46,10 @@ bool isStringNice(const std::string& pEvaluatedStr)
                 twiceInARow = true;
             }
 
-            std::string substring{ letter, nextLetter };
-            if (std::find(illegalSubstrings.begin(), illegalSubstrings.end(), substring) != illegalSubstrings.end())
+            auto isSubstringLegal = [letter, nextLetter](std::string pIllegalSubstring)
+                -> bool {return pIllegalSubstring.at(0) == letter && pIllegalSubstring.at(1) == nextLetter;};
+            if (std::find_if(illegalSubstrings.begin(), illegalSubstrings.end(), isSubstringLegal)
+                != illegalSubstrings.end())
             {
                 return false;
             }
@@ -77,4 +79,5 @@ int main(int argc, char* argv[])
     }
 
     std::cout << "Puzzle 1: " << nbNiceStrings << std::endl;
+    return 0;
 }
