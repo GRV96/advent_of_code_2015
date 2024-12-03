@@ -5,17 +5,26 @@
 
 #include "Coordinates.h"
 
+enum LightChange
+{
+    TurnOff = -1,
+    Toggle = 0,
+    TurnOn = 1
+};
+
 int main(int argc, char* argv[])
 {
     char* intputPath = argv[1];
     std::ifstream inputFile(intputPath);
-    std::string inputLine;
+    std::string instruction;
+
+    std::map<std::string, bool> lightGrid;
 
     while (inputFile.good())
     {
-        std::getline(inputFile, inputLine);
-        std::cout << inputLine << std::endl;
+        std::getline(inputFile, instruction);
+        std::cout << instruction << std::endl;
     }
 
-    std::cout << "Hello World!\n";
+    std::cout << "Day6\n";
 }
