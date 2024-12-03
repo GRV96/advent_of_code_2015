@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day3", "Day3\Day3.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day5", "Day5\Day5.vcxproj", "{D0DD65B2-B906-4D13-98AF-82F62C03EFC3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Coordinates", "Coordinates\Coordinates.vcxitems", "{339A076D-E62F-4257-BEB4-C32F95600A2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -57,5 +59,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38FDE7EC-D006-41E7-8845-C78D47D25CB0}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Coordinates\Coordinates.vcxitems*{339a076d-e62f-4257-beb4-c32f95600a2e}*SharedItemsImports = 9
+		Coordinates\Coordinates.vcxitems*{a13d27c7-47cd-4176-bce4-1ebe8dcfe106}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal

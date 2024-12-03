@@ -18,16 +18,8 @@
     <ClCompile Include="Day3.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Coordinates.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Day3Puzzle.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Coordinates.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
