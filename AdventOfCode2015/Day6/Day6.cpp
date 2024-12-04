@@ -7,6 +7,7 @@
 #include "Coordinates.h"
 
 const char COMMA = ',';
+const char HASHTAG = '#';
 const char SPACE = ' ';
 
 const std::regex COORD_REGEX = std::regex("\\d+,\\d+");
@@ -134,6 +135,11 @@ int main(int argc, char* argv[])
     while (inputFile.good())
     {
         std::getline(inputFile, instruction);
+
+        if (instruction[0] == HASHTAG)
+        {
+            continue;
+        }
 
         LightChange lightChange;
         Coordinates startCoordinates;
