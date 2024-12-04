@@ -30,6 +30,32 @@ void coordinatesFromString(const std::string& pCoordStr, Coordinates& pCoordinat
     pCoordinates.set(std::stoi(xStr), std::stoi(yStr));
 }
 
+int countLightsOn(const std::map<Coordinates, bool>& pLightGrid)
+{
+    int nbLightsOn = 0;
+
+    //std::map<Coordinates, bool>::iterator it;
+    for (auto it = pLightGrid.cbegin(); it != pLightGrid.end(); it++)
+    {
+        if (it->second)
+        {
+            nbLightsOn++;
+        }
+    }
+
+    return nbLightsOn;
+}
+
+bool isGridLigthOn(std::map<Coordinates, bool>& pLightGrid, const Coordinates& pCoordinates)
+{
+    if (pLightGrid.count(pCoordinates) == 0)
+    {
+        return false;
+    }
+
+    return pLightGrid[pCoordinates];
+}
+
 void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange,
     Coordinates& pStartCoords, Coordinates& pEndCoords)
 {
@@ -58,13 +84,46 @@ void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange
     coordinatesFromString(coordMatch[0], pEndCoords);
 }
 
+void switchLights(std::map<Coordinates, bool>& pLightGrid, const LightChange& pLigthChange,
+    const Coordinates& pStartCoords, const Coordinates& pEndCoords)
+{
+    int xLimit = pEndCoords.getX();
+    int yLimit = pEndCoords.getY();
+
+    Coordinates coords;
+    for (int i = pStartCoords.getX(); i <= xLimit; i++)
+    {
+        coords.setX(i);
+
+        for (int j = pStartCoords.getY(); j <= yLimit; j++)
+        {
+            coords.setY(j);
+
+            switch (pLigthChange)
+            {
+            case TurnOn:
+                pLightGrid[coords] = true;
+                break;
+            case TurnOff:
+                pLightGrid[coords] = false;
+                break;
+            case Toggle:
+                bool isLightOn = isGridLigthOn(pLightGrid, coords);
+                pLightGrid[coords] = !isLightOn;
+                break;
+            }
+        }
+    }
+}
+
 int main(int argc, char* argv[])
 {
     char* intputPath = argv[1];
     std::ifstream inputFile(intputPath);
     std::string instruction;
 
-    std::map<std::string, bool> lightGrid;
+    std::map<Coordinates, bool> lightGrid;
+    int nbLightsOn = 0;
 
     while (inputFile.good())
     {
@@ -75,8 +134,10 @@ int main(int argc, char* argv[])
         Coordinates endCoordinates;
         parseInstruction(instruction, lightChange, startCoordinates, endCoordinates);
 
-        std::cout << startCoordinates << " through " << endCoordinates << ": " << lightChange << std::endl;
+        switchLights(lightGrid, lightChange, startCoordinates, endCoordinates);
+        nbLightsOn += countLightsOn(lightGrid);
     }
 
     std::cout << "Day6\n";
+    std::cout << "Puzzle 1: " << nbLightsOn << std::endl;
 }
