@@ -42,18 +42,20 @@ void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange
     }
     else // "turn"
     {
-        int secondSpaceIndex = pInstruction.find(SPACE, firstSpaceIndex);
+        int secondSpaceIndex = pInstruction.find(SPACE, firstSpaceIndex + 1);
         std::string secondWord = pInstruction.substr(
             firstSpaceIndex + 1, secondSpaceIndex - firstSpaceIndex -1);
 
         pLigthChange = secondWord == OFF ? TurnOff : TurnOn;
     }
 
+    std::string subject = pInstruction.substr(firstSpaceIndex);
     std::smatch coordMatch;
-    std::regex_search(pInstruction, coordMatch, COORD_REGEX);
+    std::regex_search(subject, coordMatch, COORD_REGEX);
     coordinatesFromString(coordMatch[0], pStartCoords);
-    std::regex_search(pInstruction, coordMatch, COORD_REGEX);
-    coordinatesFromString(coordMatch[1], pEndCoords);
+    subject = coordMatch.suffix().str();
+    std::regex_search(subject, coordMatch, COORD_REGEX);
+    coordinatesFromString(coordMatch[0], pEndCoords);
 }
 
 int main(int argc, char* argv[])

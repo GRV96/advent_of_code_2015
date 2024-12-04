@@ -127,6 +127,6 @@ const std::string COMMA_SPACE = ", ";
 
 std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates)
 {
-	os << PARENTHESIS_OPEN << pCoordinates._x << COMMA_SPACE << pCoordinates._y << std::endl;
+	os << PARENTHESIS_OPEN << pCoordinates._x << COMMA_SPACE << pCoordinates._y << PARENTHESIS_CLOSED;
 	return os;
 }
