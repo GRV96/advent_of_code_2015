@@ -23,6 +23,21 @@ enum LightChange
     TurnOn = 1
 };
 
+int calculateTotalLightBrightness(const std::map<Coordinates, int>& pBrightnessLightGrid)
+{
+    int totalBrightness = 0;
+
+    for (auto it = pBrightnessLightGrid.cbegin(); it != pBrightnessLightGrid.end(); it++)
+    {
+        if (it->second)
+        {
+            totalBrightness++;
+        }
+    }
+
+    return totalBrightness;
+}
+
 void coordinatesFromString(const std::string& pCoordStr, Coordinates& pCoordinates)
 {
     int commaIndex = pCoordStr.find(COMMA);
@@ -31,12 +46,11 @@ void coordinatesFromString(const std::string& pCoordStr, Coordinates& pCoordinat
     pCoordinates.set(std::stoi(xStr), std::stoi(yStr));
 }
 
-int countLightsOn(const std::map<Coordinates, bool>& pLightGrid)
+int countLightsOn(const std::map<Coordinates, bool>& pBinaryLightGrid)
 {
     int nbLightsOn = 0;
 
-    //std::map<Coordinates, bool>::iterator it;
-    for (auto it = pLightGrid.cbegin(); it != pLightGrid.end(); it++)
+    for (auto it = pBinaryLightGrid.cbegin(); it != pBinaryLightGrid.end(); it++)
     {
         if (it->second)
         {
@@ -47,13 +61,29 @@ int countLightsOn(const std::map<Coordinates, bool>& pLightGrid)
     return nbLightsOn;
 }
 
-bool isGridLigthOn(const std::map<Coordinates, bool>& pLightGrid, const Coordinates& pCoordinates)
+int getLightBrightness(const std::map<Coordinates, int>& pBrightnessLightGrid, const Coordinates& pCoordinates)
+{
+    int lightBrightness = 0;
+
+    try
+    {
+        lightBrightness = pBrightnessLightGrid.at(pCoordinates);
+    }
+    catch (const std::out_of_range& oor)
+    {
+        // The brightness is 0.
+    }
+
+    return lightBrightness;
+}
+
+bool isGridLigthOn(const std::map<Coordinates, bool>& pBinaryLightGrid, const Coordinates& pCoordinates)
 {
     bool isLightOn = false;
 
     try
     {
-        isLightOn = pLightGrid.at(pCoordinates);
+        isLightOn = pBinaryLightGrid.at(pCoordinates);
     }
     catch (const std::out_of_range& oor)
     {
@@ -91,8 +121,8 @@ void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange
     coordinatesFromString(coordMatch[0], pEndCoords);
 }
 
-void switchLights(std::map<Coordinates, bool>& pLightGrid, const LightChange& pLigthChange,
-    const Coordinates& pStartCoords, const Coordinates& pEndCoords)
+void switchLights(std::map<Coordinates, bool>& pBinaryLightGrid, std::map<Coordinates, int>& pBrightnessLightGrid,
+    const LightChange& pLigthChange, const Coordinates& pStartCoords, const Coordinates& pEndCoords)
 {
     int xLimit = pEndCoords.getX();
     int yLimit = pEndCoords.getY();
@@ -106,19 +136,30 @@ void switchLights(std::map<Coordinates, bool>& pLightGrid, const LightChange& pL
         {
             coords.setY(j);
 
+            int lightBrightness = getLightBrightness(pBrightnessLightGrid, coords);
             switch (pLigthChange)
             {
             case TurnOn:
-                pLightGrid[coords] = true;
+                pBinaryLightGrid[coords] = true;
+                lightBrightness += 1;
                 break;
             case TurnOff:
-                pLightGrid[coords] = false;
+                pBinaryLightGrid[coords] = false;
+                lightBrightness -= 1;
                 break;
             case Toggle:
-                bool isLightOn = isGridLigthOn(pLightGrid, coords);
-                pLightGrid[coords] = !isLightOn;
+                bool isLightOn = isGridLigthOn(pBinaryLightGrid, coords);
+                pBinaryLightGrid[coords] = !isLightOn;
+                lightBrightness += 2;
                 break;
             }
+
+            if (lightBrightness < 0)
+            {
+                lightBrightness = 0;
+            }
+
+            pBrightnessLightGrid[coords] = lightBrightness;
         }
     }
 }
@@ -129,7 +170,8 @@ int main(int argc, char* argv[])
     std::ifstream inputFile(intputPath);
     std::string instruction;
 
-    std::map<Coordinates, bool> lightGrid;
+    std::map<Coordinates, bool> binaryLightGrid;
+    std::map<Coordinates, int> brightnessLightGrid;
 
     while (inputFile.good())
     {
@@ -145,15 +187,12 @@ int main(int argc, char* argv[])
         Coordinates endCoordinates;
         parseInstruction(instruction, lightChange, startCoordinates, endCoordinates);
 
-        if (lightGrid.size() == 0 && lightChange == TurnOff)
-        {
-            continue;
-        }
-
-        switchLights(lightGrid, lightChange, startCoordinates, endCoordinates);
+        switchLights(binaryLightGrid, brightnessLightGrid, lightChange, startCoordinates, endCoordinates);
     }
 
-    int nbLightsOn = countLightsOn(lightGrid);
+    int nbLightsOn = countLightsOn(binaryLightGrid);
+    int totalBrightness = calculateTotalLightBrightness(brightnessLightGrid);
     std::cout << "Day6\n";
     std::cout << "Puzzle 1: " << nbLightsOn << std::endl;
+    std::cout << "Puzzle 2: " << totalBrightness << std::endl;
 }
