@@ -130,7 +130,6 @@ int main(int argc, char* argv[])
     std::string instruction;
 
     std::map<Coordinates, bool> lightGrid;
-    int nbLightsOn = 0;
 
     while (inputFile.good())
     {
@@ -152,9 +151,9 @@ int main(int argc, char* argv[])
         }
 
         switchLights(lightGrid, lightChange, startCoordinates, endCoordinates);
-        nbLightsOn += countLightsOn(lightGrid);
     }
 
+    int nbLightsOn = countLightsOn(lightGrid);
     std::cout << "Day6\n";
     std::cout << "Puzzle 1: " << nbLightsOn << std::endl;
 }
