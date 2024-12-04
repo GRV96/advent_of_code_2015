@@ -29,10 +29,7 @@ int calculateTotalLightBrightness(const std::map<Coordinates, int>& pBrightnessL
 
     for (auto it = pBrightnessLightGrid.cbegin(); it != pBrightnessLightGrid.end(); it++)
     {
-        if (it->second)
-        {
-            totalBrightness++;
-        }
+        totalBrightness += it->second;
     }
 
     return totalBrightness;
