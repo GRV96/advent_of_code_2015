@@ -12,9 +12,7 @@ const char SPACE = ' ';
 
 const std::regex COORD_REGEX = std::regex("\\d+,\\d+");
 const std::string OFF = "off";
-const std::string ON = "on";
 const std::string TOGGLE = "toggle";
-const std::string TURN = "turn";
 
 enum LightChange
 {
@@ -192,4 +190,6 @@ int main(int argc, char* argv[])
     std::cout << "Day6\n";
     std::cout << "Puzzle 1: " << nbLightsOn << std::endl;
     std::cout << "Puzzle 2: " << totalBrightness << std::endl;
+
+    return 0;
 }
