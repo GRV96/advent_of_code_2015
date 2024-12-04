@@ -1,4 +1,11 @@
+#include <iostream>
+
 #include "Coordinates.h"
+
+Coordinates::Coordinates() :
+	_x(0),
+	_y(0)
+{}
 
 Coordinates::Coordinates(int pX, int pY) :
 	_x(pX),
@@ -38,6 +45,22 @@ void Coordinates::moveX(int pDeltaX)
 void Coordinates::moveY(int pDeltaY)
 {
 	_y += pDeltaY;
+}
+
+void Coordinates::set(int pX, int pY)
+{
+	_x = pX;
+	_y = pY;
+}
+
+void Coordinates::setX(int pX)
+{
+	_x = pX;
+}
+
+void Coordinates::setY(int pY)
+{
+	_y = pY;
 }
 
 bool Coordinates::operator ==(const Coordinates& pOther) const
@@ -96,4 +119,14 @@ Coordinates& Coordinates::operator=(Coordinates&& pOther) noexcept
 	_y = pOther._y;
 
 	return *this;
+}
+
+const char PARENTHESIS_OPEN = '(';
+const char PARENTHESIS_CLOSED = ')';
+const std::string COMMA_SPACE = ", ";
+
+std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates)
+{
+	os << PARENTHESIS_OPEN << pCoordinates._x << COMMA_SPACE << pCoordinates._y << std::endl;
+	return os;
 }
