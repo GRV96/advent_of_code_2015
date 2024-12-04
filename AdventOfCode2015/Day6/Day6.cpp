@@ -46,14 +46,20 @@ int countLightsOn(const std::map<Coordinates, bool>& pLightGrid)
     return nbLightsOn;
 }
 
-bool isGridLigthOn(std::map<Coordinates, bool>& pLightGrid, const Coordinates& pCoordinates)
+bool isGridLigthOn(const std::map<Coordinates, bool>& pLightGrid, const Coordinates& pCoordinates)
 {
-    if (pLightGrid.count(pCoordinates) == 0)
+    bool isLightOn = false;
+
+    try
     {
-        return false;
+        isLightOn = pLightGrid.at(pCoordinates);
+    }
+    catch (const std::out_of_range& oor)
+    {
+        // The light is off.
     }
 
-    return pLightGrid[pCoordinates];
+    return isLightOn;
 }
 
 void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange,
@@ -133,6 +139,11 @@ int main(int argc, char* argv[])
         Coordinates startCoordinates;
         Coordinates endCoordinates;
         parseInstruction(instruction, lightChange, startCoordinates, endCoordinates);
+
+        if (lightGrid.size() == 0 && lightChange == TurnOff)
+        {
+            continue;
+        }
 
         switchLights(lightGrid, lightChange, startCoordinates, endCoordinates);
         nbLightsOn += countLightsOn(lightGrid);
