@@ -2,11 +2,14 @@
 
 class Coordinates
 {
+	friend std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates);
+
 private:
 	int _x;
 	int _y;
 
 public:
+	Coordinates();
 	Coordinates(int pX, int pY);
 	Coordinates(const Coordinates& pOther);
 	Coordinates(const Coordinates&& pOther) noexcept;
@@ -19,6 +22,10 @@ public:
 	void moveX(int pDeltaX);
 	void moveY(int pDeltaY);
 
+	void set(int pX, int pY);
+	void setX(int pX);
+	void setY(int pY);
+
 	bool operator ==(const Coordinates& pOther) const;
 	bool operator !=(const Coordinates& pOther) const;
 	bool operator <(const Coordinates& pOther) const;
@@ -26,3 +33,6 @@ public:
 	Coordinates& operator=(Coordinates& pOther);
 	Coordinates& operator=(Coordinates&& pOther) noexcept;
 };
+
+class ostream;
+std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates);
