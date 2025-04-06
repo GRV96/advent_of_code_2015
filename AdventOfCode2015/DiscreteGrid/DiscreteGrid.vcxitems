@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <ItemsProjectGuid>{339a076d-e62f-4257-beb4-c32f95600a2e}</ItemsProjectGuid>
+    <ItemsProjectGuid>{70276183-7baa-4638-bee3-91b9715d274e}</ItemsProjectGuid>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -14,9 +14,9 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Coordinates.cpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DiscreteGrid.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Coordinates.hpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DiscreteGrid.cpp" />
   </ItemGroup>
 </Project>

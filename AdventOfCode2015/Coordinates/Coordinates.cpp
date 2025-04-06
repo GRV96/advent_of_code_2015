@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Coordinates.h"
+#include "Coordinates.hpp"
 
 Coordinates::Coordinates() :
 	_x(0),
