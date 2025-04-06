@@ -4,7 +4,7 @@
 #include <regex>
 #include <string>
 
-#include "Coordinates.h"
+#include "Coordinates.hpp"
 
 const char COMMA = ',';
 const char HASHTAG = '#';

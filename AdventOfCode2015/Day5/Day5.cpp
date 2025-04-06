@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "CharPair.h"
+#include "CharPair.hpp"
 
 const std::vector<std::string> ILLEGAL_SUBSTRINGS{ "ab", "cd", "pq", "xy" };
 

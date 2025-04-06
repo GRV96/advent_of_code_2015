@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "CharPair.h"
+#include "CharPair.hpp"
 
 const char NULL_CHAR = '\0';
 

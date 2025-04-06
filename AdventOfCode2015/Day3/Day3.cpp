@@ -3,7 +3,7 @@
 #include <set>
 #include <string>
 
-#include "Coordinates.h"
+#include "Coordinates.hpp"
 
 #define NORTH '^'
 #define SOUTH 'v'

@@ -26,7 +26,7 @@
     <Text Include="Day5Puzzle.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CharPair.h">
+    <ClInclude Include="CharPair.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

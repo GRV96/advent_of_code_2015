@@ -17,6 +17,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Coordinates.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Coordinates.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Coordinates.hpp" />
   </ItemGroup>
 </Project>
