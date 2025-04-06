@@ -57,38 +57,6 @@ int countLightsOn(const DiscreteGrid<bool>& pBinaryLightGrid)
     return nbLightsOn;
 }
 
-int getLightBrightness(const std::map<Coordinates, int>& pBrightnessLightGrid, const Coordinates& pCoordinates)
-{
-    int lightBrightness = 0;
-
-    try
-    {
-        lightBrightness = pBrightnessLightGrid.at(pCoordinates);
-    }
-    catch (const std::out_of_range& oor)
-    {
-        // The brightness is 0.
-    }
-
-    return lightBrightness;
-}
-
-bool isGridLigthOn(const std::map<Coordinates, bool>& pBinaryLightGrid, const Coordinates& pCoordinates)
-{
-    bool isLightOn = false;
-
-    try
-    {
-        isLightOn = pBinaryLightGrid.at(pCoordinates);
-    }
-    catch (const std::out_of_range& oor)
-    {
-        // The light is off.
-    }
-
-    return isLightOn;
-}
-
 void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange,
     Coordinates& pStartCoords, Coordinates& pEndCoords)
 {
@@ -133,7 +101,7 @@ void switchLights(DiscreteGrid<bool>& pBinaryLightGrid, DiscreteGrid<int>& pBrig
             coords.setY(j);
 
             int lightBrightness = 0;
-            pBrightnessLightGrid.get(coords, lightBrightness);//getLightBrightness(pBrightnessLightGrid, coords);
+            pBrightnessLightGrid.get(coords, lightBrightness);
             switch (pLigthChange)
             {
             case TurnOn:
@@ -145,7 +113,7 @@ void switchLights(DiscreteGrid<bool>& pBinaryLightGrid, DiscreteGrid<int>& pBrig
                 lightBrightness -= 1;
                 break;
             case Toggle:
-                bool isLightOn = false;//isGridLigthOn(pBinaryLightGrid, coords);
+                bool isLightOn = false;
                 pBinaryLightGrid.get(coords, isLightOn);
                 pBinaryLightGrid.set(coords, !isLightOn);
                 lightBrightness += 2;
