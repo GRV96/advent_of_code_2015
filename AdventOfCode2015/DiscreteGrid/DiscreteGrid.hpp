@@ -12,7 +12,7 @@ private:
 
 public:
 	DiscreteGrid();
-	нн~DiscreteGrid();
+	~DiscreteGrid();
 
 	typename std::map<Coordinates, T>::iterator begin() const;
 	typename std::map<Coordinates, T>::iterator end() const;

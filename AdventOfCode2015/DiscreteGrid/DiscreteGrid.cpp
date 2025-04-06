@@ -6,8 +6,8 @@ DiscreteGrid<T>::DiscreteGrid() :
 	_grid(new std::map<Coordinates, T>())
 {}
 
-template <typename T>
-DiscreteGrid<T>::нн~DiscreteGrid()
+template<typename T>
+DiscreteGrid<T>::~DiscreteGrid()
 {
 	delete _grid;
 }
