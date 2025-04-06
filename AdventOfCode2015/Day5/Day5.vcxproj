@@ -134,7 +134,7 @@
     <Text Include="Day5Puzzle.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CharPair.h" />
+    <ClInclude Include="CharPair.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
