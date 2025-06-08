@@ -16,7 +16,4 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)DiscreteGrid.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DiscreteGrid.cpp" />
-  </ItemGroup>
 </Project>

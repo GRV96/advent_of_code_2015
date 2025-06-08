@@ -11,14 +11,49 @@ private:
 	std::map<Coordinates, T>* _grid;
 
 public:
-	DiscreteGrid();
-	~DiscreteGrid();
+	DiscreteGrid() :
+		_grid(new std::map<Coordinates, T>())
+	{}
 
-	typename std::map<Coordinates, T>::iterator begin() const;
-	typename std::map<Coordinates, T>::iterator end() const;
+	~DiscreteGrid()
+	{
+		delete _grid;
+	}
 
-	bool get(const Coordinates& pCoordinates, T& pValue) const;
+	typename std::map<Coordinates, T>::iterator begin() const
+	{
+		return _grid->begin();
+	}
 
-	void set(const Coordinates& pCoordinates, const T& pValue);
-	void set(const Coordinates&& pCoordinates, const T&& pValue);
+	typename std::map<Coordinates, T>::iterator end() const
+	{
+		return _grid->end();
+	}
+
+	bool get(const Coordinates& pCoordinates, T& pValue) const
+	{
+		bool wasValueRetrieved = false;
+
+		try
+		{
+			pValue = _grid->at(pCoordinates);
+			wasValueRetrieved = true;
+		}
+		catch (const std::out_of_range& oor)
+		{
+			// Do nothing.
+		}
+
+		return wasValueRetrieved;
+	}
+
+	void set(const Coordinates& pCoordinates, const T& pValue)
+	{
+		(*_grid)[pCoordinates] = pValue;
+	}
+
+	void set(const Coordinates&& pCoordinates, const T&& pValue)
+	{
+		(*_grid)[pCoordinates] = pValue;
+	}
 };
