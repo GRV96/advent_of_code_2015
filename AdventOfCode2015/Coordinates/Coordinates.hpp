@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class Coordinates
 {
 	friend std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates);
@@ -34,5 +36,4 @@ public:
 	Coordinates& operator=(Coordinates&& pOther) noexcept;
 };
 
-class ostream;
 std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates);

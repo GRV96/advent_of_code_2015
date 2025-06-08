@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Coordinates.hpp"
+#include "DiscreteGrid.hpp"
 
 const char COMMA = ',';
 const char HASHTAG = '#';
@@ -21,11 +22,11 @@ enum LightChange
     TurnOn = 1
 };
 
-int calculateTotalLightBrightness(const std::map<Coordinates, int>& pBrightnessLightGrid)
+int calculateTotalLightBrightness(const DiscreteGrid<int>& pBrightnessLightGrid)
 {
     int totalBrightness = 0;
 
-    for (auto it = pBrightnessLightGrid.cbegin(); it != pBrightnessLightGrid.end(); it++)
+    for (auto it = pBrightnessLightGrid.begin(); it != pBrightnessLightGrid.end(); it++)
     {
         totalBrightness += it->second;
     }
@@ -41,11 +42,11 @@ void coordinatesFromString(const std::string& pCoordStr, Coordinates& pCoordinat
     pCoordinates.set(std::stoi(xStr), std::stoi(yStr));
 }
 
-int countLightsOn(const std::map<Coordinates, bool>& pBinaryLightGrid)
+int countLightsOn(const DiscreteGrid<bool>& pBinaryLightGrid)
 {
     int nbLightsOn = 0;
 
-    for (auto it = pBinaryLightGrid.cbegin(); it != pBinaryLightGrid.end(); it++)
+    for (auto it = pBinaryLightGrid.begin(); it != pBinaryLightGrid.end(); it++)
     {
         if (it->second)
         {
@@ -54,38 +55,6 @@ int countLightsOn(const std::map<Coordinates, bool>& pBinaryLightGrid)
     }
 
     return nbLightsOn;
-}
-
-int getLightBrightness(const std::map<Coordinates, int>& pBrightnessLightGrid, const Coordinates& pCoordinates)
-{
-    int lightBrightness = 0;
-
-    try
-    {
-        lightBrightness = pBrightnessLightGrid.at(pCoordinates);
-    }
-    catch (const std::out_of_range& oor)
-    {
-        // The brightness is 0.
-    }
-
-    return lightBrightness;
-}
-
-bool isGridLigthOn(const std::map<Coordinates, bool>& pBinaryLightGrid, const Coordinates& pCoordinates)
-{
-    bool isLightOn = false;
-
-    try
-    {
-        isLightOn = pBinaryLightGrid.at(pCoordinates);
-    }
-    catch (const std::out_of_range& oor)
-    {
-        // The light is off.
-    }
-
-    return isLightOn;
 }
 
 void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange,
@@ -116,7 +85,7 @@ void parseInstruction(const std::string& pInstruction, LightChange& pLigthChange
     coordinatesFromString(coordMatch[0], pEndCoords);
 }
 
-void switchLights(std::map<Coordinates, bool>& pBinaryLightGrid, std::map<Coordinates, int>& pBrightnessLightGrid,
+void switchLights(DiscreteGrid<bool>& pBinaryLightGrid, DiscreteGrid<int>& pBrightnessLightGrid,
     const LightChange& pLigthChange, const Coordinates& pStartCoords, const Coordinates& pEndCoords)
 {
     int xLimit = pEndCoords.getX();
@@ -131,20 +100,22 @@ void switchLights(std::map<Coordinates, bool>& pBinaryLightGrid, std::map<Coordi
         {
             coords.setY(j);
 
-            int lightBrightness = getLightBrightness(pBrightnessLightGrid, coords);
+            int lightBrightness = 0;
+            pBrightnessLightGrid.get(coords, lightBrightness);
             switch (pLigthChange)
             {
             case TurnOn:
-                pBinaryLightGrid[coords] = true;
+                pBinaryLightGrid.set(coords, true);
                 lightBrightness += 1;
                 break;
             case TurnOff:
-                pBinaryLightGrid[coords] = false;
+                pBinaryLightGrid.set(coords, false);
                 lightBrightness -= 1;
                 break;
             case Toggle:
-                bool isLightOn = isGridLigthOn(pBinaryLightGrid, coords);
-                pBinaryLightGrid[coords] = !isLightOn;
+                bool isLightOn = false;
+                pBinaryLightGrid.get(coords, isLightOn);
+                pBinaryLightGrid.set(coords, !isLightOn);
                 lightBrightness += 2;
                 break;
             }
@@ -154,7 +125,7 @@ void switchLights(std::map<Coordinates, bool>& pBinaryLightGrid, std::map<Coordi
                 lightBrightness = 0;
             }
 
-            pBrightnessLightGrid[coords] = lightBrightness;
+            pBrightnessLightGrid.set(coords, lightBrightness);
         }
     }
 }
@@ -165,8 +136,8 @@ int main(int argc, char* argv[])
     std::ifstream inputFile(intputPath);
     std::string instruction;
 
-    std::map<Coordinates, bool> binaryLightGrid;
-    std::map<Coordinates, int> brightnessLightGrid;
+    DiscreteGrid<bool> binaryLightGrid;
+    DiscreteGrid<int> brightnessLightGrid;
 
     while (inputFile.good())
     {
