@@ -31,7 +31,7 @@ bool DiscreteGrid<T>::get(const Coordinates& pCoordinates, T& pValue) const
 
 	try
 	{
-		pValue = _grid.at(pCoordinates);
+		pValue = _grid->at(pCoordinates);
 		wasValueRetrieved = true;
 	}
 	catch (const std::out_of_range& oor)
@@ -45,12 +45,11 @@ bool DiscreteGrid<T>::get(const Coordinates& pCoordinates, T& pValue) const
 template <typename T>
 void DiscreteGrid<T>::set(const Coordinates& pCoordinates, const T& pValue)
 {
-	_grid[pCoordinates] = pValue;
+	(*_grid)[pCoordinates] = pValue;
 }
 
 template <typename T>
 void DiscreteGrid<T>::set(const Coordinates&& pCoordinates, const T&& pValue)
 {
-	_grid[pCoordinates] = pValue;
+	(*_grid)[pCoordinates] = pValue;
 }
-
