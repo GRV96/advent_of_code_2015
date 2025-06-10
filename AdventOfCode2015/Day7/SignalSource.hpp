@@ -8,11 +8,14 @@ typedef unsigned short wireSig;
 class SignalSource
 {
 private:
+	static const wireSig DEFAULT_VALUE = 0;
+
 	std::string _destinationWireName;
 	wireSig _value;
 	bool _isValueSet;
 
 protected:
+	bool _canBeReset;
 
 	SignalSource(const std::string& pDestinationWireName, wireSig pValue);
 
