@@ -8,6 +8,7 @@
 #include "OperationNot.hpp"
 #include "OperationShift.hpp"
 #include "RawSignal.hpp"
+#include "WireToWire.hpp"
 
 const std::string ARROW = " -> ";
 const int ARROW_LENGTH = ARROW.length();
@@ -258,6 +259,12 @@ void parseInstruction(
         {
             pWireSignals[destinationWire] = signalSource;
         }
+    }
+
+    if (signalSource == nullptr)
+    {
+        signalSource = new WireToWire(destinationWire, opInstruction);
+        pWireSignals[destinationWire] = signalSource;
     }
 
     if (signalSource == nullptr)
