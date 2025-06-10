@@ -12,7 +12,17 @@ SignalSource::SignalSource(const std::string& pDestinationWireName) :
 	_value(-1)
 {}
 
+bool SignalSource::isValueDefined() const
+{
+	return _value >= 0;
+}
+
 const std::string& SignalSource::getDestinationWireName() const
 {
 	return _destinationWireName;
+}
+
+void SignalSource::resetValue()
+{
+	_value = -1;
 }

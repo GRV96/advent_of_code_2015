@@ -20,6 +20,9 @@ public:
 
 	virtual int calculateValue(
 		const std::map<std::string, SignalSource*>& pWireSignals) = 0;
+
+	bool isValueDefined() const;
+	void resetValue();
 };
 
 typedef std::map<std::string, SignalSource*> wireSigMap;

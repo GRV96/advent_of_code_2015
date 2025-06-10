@@ -278,6 +278,12 @@ int main(int argc, char* argv[])
     char* intputPath = argv[1];
     const std::string wireOfInterest = argv[2];
 
+    std::string overriddenWire;
+    if (argc >= 4)
+    {
+        overriddenWire = argv[3];
+    }
+
     std::ifstream inputFile(intputPath);
     std::string instruction;
     wireSigMap wireSignals;
@@ -289,7 +295,29 @@ int main(int argc, char* argv[])
     }
 
     SignalSource* sourceOfInterest = wireSignals.at(wireOfInterest);
-    int signalOfInterest = sourceOfInterest->calculateValue(wireSignals);
+    int signalPuzzle1 = sourceOfInterest->calculateValue(wireSignals);
 
-    std::cout << "Puzzle 1: " << wireOfInterest << " = " << signalOfInterest << std::endl;
+    int signalPuzzle2 = -1;
+    if (!overriddenWire.empty())
+    {
+        for (const auto& kv : wireSignals)
+        {
+            kv.second->resetValue();
+        }
+
+        RawSignal* overriddenSource = new RawSignal(overriddenWire, signalPuzzle1);
+        delete wireSignals.at(overriddenWire);
+        wireSignals[overriddenWire] = overriddenSource;
+        signalPuzzle2 = sourceOfInterest->calculateValue(wireSignals);
+    }
+
+    // Dynamic pointer deletion
+    for (const auto& kv : wireSignals)
+    {
+        delete kv.second;
+    }
+    wireSignals.clear();
+
+    std::cout << "Puzzle 1: " << wireOfInterest << " = " << signalPuzzle1 << std::endl;
+    std::cout << "Puzzle 2: " << wireOfInterest << " = " << signalPuzzle2 << std::endl;
 }

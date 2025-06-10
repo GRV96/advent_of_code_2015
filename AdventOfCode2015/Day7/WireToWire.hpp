@@ -9,5 +9,5 @@ public:
 		const std::string& pDestinationWireName,
 		const std::string& pSourceWireName);
 
-	int calculateValue(const wireSigMap& pWireSignals);
+	int calculateValue(const wireSigMap& pWireSignals) override;
 };
