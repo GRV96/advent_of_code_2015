@@ -128,10 +128,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Day7.cpp" />
+    <ClCompile Include="OperationBitBool.cpp" />
+    <ClCompile Include="OperationNot.cpp" />
+    <ClCompile Include="OperationShift.cpp" />
+    <ClCompile Include="RawSignal.cpp" />
+    <ClCompile Include="SignalSource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Day7Part1Sample.txt" />
     <Text Include="Day7Puzzle.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OperationBitBool.hpp" />
+    <ClInclude Include="OperationNot.hpp" />
+    <ClInclude Include="OperationShift.hpp" />
+    <ClInclude Include="RawSignal.hpp" />
+    <ClInclude Include="SignalSource.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
