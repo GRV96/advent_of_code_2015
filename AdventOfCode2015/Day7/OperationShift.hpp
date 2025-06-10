@@ -1,11 +1,10 @@
 #pragma once
 
-#include "SignalSource.hpp"
+#include "SingleWireSource.hpp"
 
-class OperationShift : public SignalSource
+class OperationShift : public SingleWireSource
 {
 private:
-	std::string _sourceWireName;
 	int _displacement;
 
 public:
@@ -15,6 +14,4 @@ public:
 		int pDisplacement);
 
 	int calculateValue(const wireSigMap& pWireSignals);
-
-	const std::string& getSourceWireName() const;
 };

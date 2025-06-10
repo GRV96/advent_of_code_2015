@@ -3,14 +3,8 @@
 WireToWire::WireToWire(
 	const std::string& pDestinationWireName,
 	const std::string& pSourceWireName) :
-	SignalSource(pDestinationWireName),
-	_sourceWireName(pSourceWireName)
+	SingleWireSource(pDestinationWireName, pSourceWireName)
 {}
-
-const std::string& WireToWire::getSourceWireName() const
-{
-	return _sourceWireName;
-}
 
 int WireToWire::calculateValue(const wireSigMap& pWireSignals)
 {
@@ -19,7 +13,7 @@ int WireToWire::calculateValue(const wireSigMap& pWireSignals)
 		return _value;
 	}
 
-	SignalSource* signalSource = pWireSignals.at(_sourceWireName);
+	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
 	_value = signalSource->calculateValue(pWireSignals);
 	return _value;
 }

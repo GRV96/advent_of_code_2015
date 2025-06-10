@@ -3,8 +3,7 @@
 OperationNot::OperationNot(
 	const std::string& pDestinationWireName,
 	const std::string& pSourceWireName) :
-	SignalSource(pDestinationWireName),
-	_sourceWireName(pSourceWireName)
+	SingleWireSource(pDestinationWireName, pSourceWireName)
 {}
 
 int OperationNot::calculateValue(const wireSigMap& pWireSignals)
@@ -14,13 +13,8 @@ int OperationNot::calculateValue(const wireSigMap& pWireSignals)
 		return _value;
 	}
 
-	SignalSource* signalSource = pWireSignals.at(_sourceWireName);
+	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
 	int wireValue = signalSource->calculateValue(pWireSignals);
 	_value = ~wireValue;
 	return _value;
-}
-
-const std::string& OperationNot::getSourceWireName() const
-{
-	return _sourceWireName;
 }

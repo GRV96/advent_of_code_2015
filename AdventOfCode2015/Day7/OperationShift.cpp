@@ -4,8 +4,7 @@ OperationShift::OperationShift(
 	const std::string& pDestinationWireName,
 	const std::string& pSourceWireName,
 	int pDisplacement) :
-	SignalSource(pDestinationWireName),
-	_sourceWireName(pSourceWireName),
+	SingleWireSource(pDestinationWireName, pSourceWireName),
 	_displacement(pDisplacement)
 {}
 
@@ -16,7 +15,8 @@ int OperationShift::calculateValue(const wireSigMap& pWireSignals)
 		return _value;
 	}
 
-	_value = pWireSignals.at(_sourceWireName)->calculateValue(pWireSignals);
+	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
+	_value = signalSource->calculateValue(pWireSignals);
 
 	if (_displacement >= 0)
 	{
@@ -28,9 +28,4 @@ int OperationShift::calculateValue(const wireSigMap& pWireSignals)
 	}
 
 	return _value;
-}
-
-const std::string& OperationShift::getSourceWireName() const
-{
-	return _sourceWireName;
 }

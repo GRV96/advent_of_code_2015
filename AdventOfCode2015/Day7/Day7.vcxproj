@@ -133,6 +133,7 @@
     <ClCompile Include="OperationShift.cpp" />
     <ClCompile Include="RawSignal.cpp" />
     <ClCompile Include="SignalSource.cpp" />
+    <ClCompile Include="SingleWireSource.cpp" />
     <ClCompile Include="WireToWire.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="OperationShift.hpp" />
     <ClInclude Include="RawSignal.hpp" />
     <ClInclude Include="SignalSource.hpp" />
+    <ClInclude Include="SingleWireSource.hpp" />
     <ClInclude Include="WireToWire.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
