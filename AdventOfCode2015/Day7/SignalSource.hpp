@@ -10,12 +10,13 @@ class SignalSource
 private:
 	std::string _destinationWireName;
 	wireSig _value;
-	bool _isValueDefined;
+	bool _isValueSet;
 
 protected:
 
 	SignalSource(const std::string& pDestinationWireName, wireSig pValue);
 
+	wireSig getValue() const;
 	void setValue(wireSig pValue);
 
 public:
@@ -26,8 +27,7 @@ public:
 	virtual wireSig calculateValue(
 		const std::map<std::string, SignalSource*>& pWireSignals) = 0;
 
-	wireSig getValue() const;
-	bool isValueDefined() const;
+	bool isValueSet() const;
 	void resetValue();
 };
 

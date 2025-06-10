@@ -8,7 +8,7 @@ OperationNot::OperationNot(
 
 wireSig OperationNot::calculateValue(const wireSigMap& pWireSignals)
 {
-	if (isValueDefined())
+	if (isValueSet())
 	{
 		return getValue();
 	}

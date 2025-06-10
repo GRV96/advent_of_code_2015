@@ -8,7 +8,7 @@ WireToWire::WireToWire(
 
 wireSig WireToWire::calculateValue(const wireSigMap& pWireSignals)
 {
-	if (isValueDefined())
+	if (isValueSet())
 	{
 		return getValue();
 	}
