@@ -1,11 +1,10 @@
 #include "RawSignal.hpp"
 
-RawSignal::RawSignal(const std::string& pDestinationWireName, wireSig pValue) :
-	SignalSource(pDestinationWireName),
-	_value(pValue)
+RawSignal::RawSignal(const std::string& pDestinationWireName, int pValue) :
+	SignalSource(pDestinationWireName, pValue)
 {}
 
-wireSig RawSignal::getValue(const wireSigMap& pWireSignals) const
+int RawSignal::calculateValue(const wireSigMap& pWireSignals)
 {
 	return _value;
 }

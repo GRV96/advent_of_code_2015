@@ -4,11 +4,8 @@
 
 class RawSignal : public SignalSource
 {
-private:
-	wireSig _value;
-
 public:
-	RawSignal(const std::string& pDestinationWireName, wireSig pValue);
+	RawSignal(const std::string& pDestinationWireName, int pValue);
 
-	wireSig getValue(const wireSigMap& pWireSignals) const;
+	int calculateValue(const wireSigMap& pWireSignals);
 };

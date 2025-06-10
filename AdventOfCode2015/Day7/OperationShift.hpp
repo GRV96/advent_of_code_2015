@@ -14,7 +14,7 @@ public:
 		const std::string& pSourceWireName,
 		int pDisplacement);
 
-	wireSig getValue(const wireSigMap& pWireSignals) const;
+	int calculateValue(const wireSigMap& pWireSignals);
 
 	const std::string& getSourceWireName() const;
 };

@@ -192,10 +192,11 @@ bool registerStrNum(
     bool success = false;
 
     bool isNumRegistered = pWireSignals.find(pSomeString) != pWireSignals.end();
-    int signal = 0;
-    if (!isNumRegistered && strToInt(pSomeString, signal))
+    int signalValue = 0;
+    if (!isNumRegistered && strToInt(pSomeString, signalValue))
     {
-        pWireSignals[pSomeString] = signal;
+        SignalSource* signalSource = new RawSignal(pSomeString, signalValue);
+        pWireSignals[pSomeString] = signalSource;
         success = true;
     }
 
@@ -204,8 +205,7 @@ bool registerStrNum(
 
 void parseInstruction(
     const std::string& pInstruction,
-    wireSigMap& pWireSignals,
-    std::vector<SignalSource*>& pSignalSources)
+    wireSigMap& pWireSignals)
 {
     size_t arrowIndex = pInstruction.find(ARROW);
     std::string destinationWire = pInstruction.substr(arrowIndex + ARROW_LENGTH);
@@ -221,7 +221,7 @@ void parseInstruction(
         registerStrNum(pWireSignals, opBitBool->getLeftWireName());
         registerStrNum(pWireSignals, opBitBool->getRightWireName());
 
-        pSignalSources.push_back(opBitBool);
+        pWireSignals[destinationWire] = signalSource;
     }
 
     if (signalSource == nullptr)
@@ -233,7 +233,7 @@ void parseInstruction(
             OperationNot* opNot = (OperationNot*)signalSource;
             registerStrNum(pWireSignals, opNot->getSourceWireName());
 
-            pSignalSources.push_back(opNot);
+            pWireSignals[destinationWire] = signalSource;
         }
     }
 
@@ -246,7 +246,7 @@ void parseInstruction(
             OperationShift* opShift = (OperationShift*)signalSource;
             registerStrNum(pWireSignals, opShift->getSourceWireName());
 
-            pSignalSources.push_back(opShift);
+            pWireSignals[destinationWire] = signalSource;
         }
     }
 
@@ -256,8 +256,7 @@ void parseInstruction(
 
         if (signalSource != nullptr)
         {
-            wireSig signalValue = signalSource->getValue(pWireSignals);
-            pWireSignals[destinationWire] = signalValue;
+            pWireSignals[destinationWire] = signalSource;
         }
     }
 
@@ -275,20 +274,15 @@ int main(int argc, char* argv[])
     std::ifstream inputFile(intputPath);
     std::string instruction;
     wireSigMap wireSignals;
-    std::vector<SignalSource*> signalSources;
 
     while (inputFile.good())
     {
         std::getline(inputFile, instruction);
-        parseInstruction(instruction, wireSignals, signalSources);
+        parseInstruction(instruction, wireSignals);
     }
 
-    for (SignalSource* signalSource: signalSources)
-    {
-        wireSig signalValue = signalSource->getValue(wireSignals);
-        wireSignals[signalSource->getDestinationWireName()] = signalValue;
-        delete signalSource;
-    }
+    SignalSource* sourceOfInterest = wireSignals.at(wireOfInterest);
+    int signalOfInterest = sourceOfInterest->calculateValue(wireSignals);
 
-    std::cout << "Puzzle 1: " << wireOfInterest << " = " << wireSignals.at(wireOfInterest) << std::endl;
+    std::cout << "Puzzle 1: " << wireOfInterest << " = " << signalOfInterest << std::endl;
 }

@@ -12,7 +12,7 @@ public:
 		const std::string& pDestinationWireName,
 		const std::string& pSourceWireName);
 
-	wireSig getValue(const wireSigMap& pWireSignals) const;
+	int calculateValue(const wireSigMap& pWireSignals);
 
 	const std::string& getSourceWireName() const;
 };
