@@ -2,19 +2,32 @@
 
 SignalSource::SignalSource(
 	const std::string& pDestinationWireName,
-	int pValue) :
+	wireSig pValue) :
 	_destinationWireName(pDestinationWireName),
-	_value(pValue)
+	_value(pValue),
+	_isValueDefined(true)
 {}
+
+void SignalSource::setValue(wireSig pValue)
+{
+	_value = pValue;
+	_isValueDefined = true;
+}
 
 SignalSource::SignalSource(const std::string& pDestinationWireName) :
 	_destinationWireName(pDestinationWireName),
-	_value(-1)
+	_value(0),
+	_isValueDefined(false)
 {}
+
+wireSig SignalSource::getValue() const
+{
+	return _value;
+}
 
 bool SignalSource::isValueDefined() const
 {
-	return _value >= 0;
+	return _isValueDefined;
 }
 
 const std::string& SignalSource::getDestinationWireName() const
@@ -24,5 +37,6 @@ const std::string& SignalSource::getDestinationWireName() const
 
 void SignalSource::resetValue()
 {
-	_value = -1;
+	_value = 0;
+	_isValueDefined = false;
 }

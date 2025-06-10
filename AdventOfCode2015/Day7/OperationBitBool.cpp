@@ -11,32 +11,32 @@ OperationBitBool::OperationBitBool(
 	_rightWireName(pRightWireName)
 {}
 
-int OperationBitBool::calculateValue(const wireSigMap& pWireSignals)
+wireSig OperationBitBool::calculateValue(const wireSigMap& pWireSignals)
 {
-	if (_value >= 0)
+	if (isValueDefined())
 	{
-		return _value;
+		return getValue();
 	}
 
 	SignalSource* leftSource = pWireSignals.at(_leftWireName);
 	SignalSource* rightSource = pWireSignals.at(_rightWireName);
-	int leftOperand = leftSource->calculateValue(pWireSignals);
-	int rightOperand = rightSource->calculateValue(pWireSignals);
+	wireSig leftOperand = leftSource->calculateValue(pWireSignals);
+	wireSig rightOperand = rightSource->calculateValue(pWireSignals);
 
 	switch (_operator)
 	{
 	case AND:
-		_value = leftOperand & rightOperand;
+		setValue(leftOperand & rightOperand);
 		break;
 	case OR:
-		_value = leftOperand | rightOperand;
+		setValue(leftOperand | rightOperand);
 		break;
 	case XOR:
-		_value = leftOperand ^ rightOperand;
+		setValue(leftOperand ^ rightOperand);
 		break;
-	}
+	} // default: value not set.
 
-	return _value;
+	return getValue();
 }
 
 const std::string& OperationBitBool::getLeftWireName() const

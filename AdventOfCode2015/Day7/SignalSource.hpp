@@ -3,24 +3,30 @@
 #include<map>
 #include<string>
 
+typedef unsigned short wireSig;
+
 class SignalSource
 {
 private:
 	std::string _destinationWireName;
+	wireSig _value;
+	bool _isValueDefined;
 
 protected:
-	int _value;
 
-	SignalSource(const std::string& pDestinationWireName, int pValue);
+	SignalSource(const std::string& pDestinationWireName, wireSig pValue);
+
+	void setValue(wireSig pValue);
 
 public:
 	SignalSource(const std::string& pDestinationWireName);
 
 	const std::string& getDestinationWireName() const;
 
-	virtual int calculateValue(
+	virtual wireSig calculateValue(
 		const std::map<std::string, SignalSource*>& pWireSignals) = 0;
 
+	wireSig getValue() const;
 	bool isValueDefined() const;
 	void resetValue();
 };

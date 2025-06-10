@@ -6,15 +6,16 @@ OperationNot::OperationNot(
 	SingleWireSource(pDestinationWireName, pSourceWireName)
 {}
 
-int OperationNot::calculateValue(const wireSigMap& pWireSignals)
+wireSig OperationNot::calculateValue(const wireSigMap& pWireSignals)
 {
-	if (_value >= 0)
+	if (isValueDefined())
 	{
-		return _value;
+		return getValue();
 	}
 
 	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
-	int wireValue = signalSource->calculateValue(pWireSignals);
-	_value = ~wireValue;
-	return _value;
+	int value = signalSource->calculateValue(pWireSignals);
+	value = ~value;
+	setValue(value);
+	return value;
 }

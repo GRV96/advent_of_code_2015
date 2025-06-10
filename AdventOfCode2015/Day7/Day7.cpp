@@ -160,7 +160,7 @@ SignalSource* makeOperationShift(
         }
     }
 
-    if (directionFactor != 0)
+    if (directionFactor != 0) // LSHIFT or RSHIFT found.
     {
         std::string sourceWire = pOpInstruction.substr(0, opIndexStart);
         std::string operand = pOpInstruction.substr(opIndexEnd);

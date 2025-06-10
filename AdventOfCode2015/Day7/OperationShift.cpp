@@ -8,24 +8,25 @@ OperationShift::OperationShift(
 	_displacement(pDisplacement)
 {}
 
-int OperationShift::calculateValue(const wireSigMap& pWireSignals)
+wireSig OperationShift::calculateValue(const wireSigMap& pWireSignals)
 {
-	if (_value >= 0)
+	if (isValueDefined())
 	{
-		return _value;
+		return getValue();
 	}
 
 	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
-	_value = signalSource->calculateValue(pWireSignals);
+	wireSig value = signalSource->calculateValue(pWireSignals);
 
 	if (_displacement >= 0)
 	{
-		_value = _value >> _displacement;
+		value = value >> _displacement;
 	}
 	else
 	{
-		_value = _value << (-_displacement);
+		value = value << (-_displacement);
 	}
 
-	return _value;
+	setValue(value);
+	return value;
 }

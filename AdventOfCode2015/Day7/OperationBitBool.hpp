@@ -18,7 +18,7 @@ public:
 		const BoolOp& pOperator,
 		const std::string& pRightWireName);
 
-	int calculateValue(const wireSigMap& pWireSignals) override;
+	wireSig calculateValue(const wireSigMap& pWireSignals) override;
 
 	const std::string& getLeftWireName() const;
 	BoolOp getOperator() const;

@@ -6,14 +6,15 @@ WireToWire::WireToWire(
 	SingleWireSource(pDestinationWireName, pSourceWireName)
 {}
 
-int WireToWire::calculateValue(const wireSigMap& pWireSignals)
+wireSig WireToWire::calculateValue(const wireSigMap& pWireSignals)
 {
-	if (_value >= 0)
+	if (isValueDefined())
 	{
-		return _value;
+		return getValue();
 	}
 
 	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
-	_value = signalSource->calculateValue(pWireSignals);
-	return _value;
+	wireSig value = signalSource->calculateValue(pWireSignals);
+	setValue(value);
+	return value;
 }
