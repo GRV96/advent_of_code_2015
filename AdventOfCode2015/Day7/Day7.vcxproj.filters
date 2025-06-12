@@ -18,25 +18,25 @@
     <ClCompile Include="Day7.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="OperationNot.cpp">
+    <ClCompile Include="SignalSource\OperationBitBool.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="RawSignal.cpp">
+    <ClCompile Include="SignalSource\OperationNot.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="OperationShift.cpp">
+    <ClCompile Include="SignalSource\OperationShift.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="OperationBitBool.cpp">
+    <ClCompile Include="SignalSource\RawSignal.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SignalSource.cpp">
+    <ClCompile Include="SignalSource\SignalSource.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="WireToWire.cpp">
+    <ClCompile Include="SignalSource\SingleWireSource.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SingleWireSource.cpp">
+    <ClCompile Include="SignalSource\WireToWire.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,25 +45,25 @@
     <Text Include="Day7Puzzle.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SignalSource.hpp">
+    <ClInclude Include="SignalSource\OperationBitBool.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="OperationNot.hpp">
+    <ClInclude Include="SignalSource\OperationNot.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="RawSignal.hpp">
+    <ClInclude Include="SignalSource\OperationShift.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="OperationShift.hpp">
+    <ClInclude Include="SignalSource\RawSignal.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="OperationBitBool.hpp">
+    <ClInclude Include="SignalSource\SignalSource.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="WireToWire.hpp">
+    <ClInclude Include="SignalSource\SingleWireSource.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SingleWireSource.hpp">
+    <ClInclude Include="SignalSource\WireToWire.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

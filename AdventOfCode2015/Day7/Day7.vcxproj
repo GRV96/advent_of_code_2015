@@ -128,26 +128,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Day7.cpp" />
-    <ClCompile Include="OperationBitBool.cpp" />
-    <ClCompile Include="OperationNot.cpp" />
-    <ClCompile Include="OperationShift.cpp" />
-    <ClCompile Include="RawSignal.cpp" />
-    <ClCompile Include="SignalSource.cpp" />
-    <ClCompile Include="SingleWireSource.cpp" />
-    <ClCompile Include="WireToWire.cpp" />
+    <ClCompile Include="SignalSource\OperationBitBool.cpp" />
+    <ClCompile Include="SignalSource\OperationNot.cpp" />
+    <ClCompile Include="SignalSource\OperationShift.cpp" />
+    <ClCompile Include="SignalSource\RawSignal.cpp" />
+    <ClCompile Include="SignalSource\SignalSource.cpp" />
+    <ClCompile Include="SignalSource\SingleWireSource.cpp" />
+    <ClCompile Include="SignalSource\WireToWire.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Day7Part1Sample.txt" />
     <Text Include="Day7Puzzle.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OperationBitBool.hpp" />
-    <ClInclude Include="OperationNot.hpp" />
-    <ClInclude Include="OperationShift.hpp" />
-    <ClInclude Include="RawSignal.hpp" />
-    <ClInclude Include="SignalSource.hpp" />
-    <ClInclude Include="SingleWireSource.hpp" />
-    <ClInclude Include="WireToWire.hpp" />
+    <ClInclude Include="SignalSource\OperationBitBool.hpp" />
+    <ClInclude Include="SignalSource\OperationNot.hpp" />
+    <ClInclude Include="SignalSource\OperationShift.hpp" />
+    <ClInclude Include="SignalSource\RawSignal.hpp" />
+    <ClInclude Include="SignalSource\SignalSource.hpp" />
+    <ClInclude Include="SignalSource\SingleWireSource.hpp" />
+    <ClInclude Include="SignalSource\WireToWire.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

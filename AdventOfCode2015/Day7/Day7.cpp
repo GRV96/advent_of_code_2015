@@ -4,12 +4,12 @@
 #include <string>
 #include <vector>
 
-#include "SignalSource.hpp"
-#include "OperationBitBool.hpp"
-#include "OperationNot.hpp"
-#include "OperationShift.hpp"
-#include "RawSignal.hpp"
-#include "WireToWire.hpp"
+#include "SignalSource/SignalSource.hpp"
+#include "SignalSource/OperationBitBool.hpp"
+#include "SignalSource/OperationNot.hpp"
+#include "SignalSource/OperationShift.hpp"
+#include "SignalSource/RawSignal.hpp"
+#include "SignalSource/WireToWire.hpp"
 
 const std::string ARROW = " -> ";
 const int ARROW_LENGTH = ARROW.length();
