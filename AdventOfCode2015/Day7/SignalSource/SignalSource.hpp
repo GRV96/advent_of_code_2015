@@ -1,6 +1,7 @@
 #pragma once
 
 #include<map>
+#include<memory>
 #include<string>
 
 typedef unsigned short wireSig;
@@ -28,10 +29,11 @@ public:
 	const std::string& getDestinationWireName() const;
 
 	virtual wireSig calculateValue(
-		const std::map<std::string, SignalSource*>& pWireSignals) = 0;
+		const std::map<std::string,
+		std::shared_ptr<SignalSource>>& pWireSignals) = 0;
 
 	bool isValueSet() const;
 	void resetValue();
 };
 
-typedef std::map<std::string, SignalSource*> wireSigMap;
+typedef std::map<std::string, std::shared_ptr<SignalSource>> wireSigMap;

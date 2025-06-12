@@ -15,7 +15,7 @@ wireSig OperationShift::calculateValue(const wireSigMap& pWireSignals)
 		return getValue();
 	}
 
-	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
+	std::shared_ptr<SignalSource> signalSource = pWireSignals.at(getSourceWireName());
 	wireSig value = signalSource->calculateValue(pWireSignals);
 
 	if (_displacement >= 0)

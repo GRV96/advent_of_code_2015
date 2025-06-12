@@ -1,14 +1,15 @@
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 
-#include "SignalSource.hpp"
-#include "OperationBitBool.hpp"
-#include "OperationNot.hpp"
-#include "OperationShift.hpp"
-#include "RawSignal.hpp"
-#include "WireToWire.hpp"
+#include "SignalSource/SignalSource.hpp"
+#include "SignalSource/OperationBitBool.hpp"
+#include "SignalSource/OperationNot.hpp"
+#include "SignalSource/OperationShift.hpp"
+#include "SignalSource/RawSignal.hpp"
+#include "SignalSource/WireToWire.hpp"
 
 const std::string ARROW = " -> ";
 const int ARROW_LENGTH = ARROW.length();
@@ -99,11 +100,11 @@ bool strToInt(const std::string& pSomeString, int& pValue)
     return true;
 }
 
-SignalSource* makeOperationBitBool(
+std::unique_ptr<OperationBitBool> makeOperationBitBool(
     const std::string& pOpInstruction,
     const std::string& pDestinationWire)
 {
-    SignalSource* signalSource = nullptr;
+    std::unique_ptr<OperationBitBool> opBitBool = nullptr;
 
     BoolOp operation = UNDEF;
     int opIndexStart = -1;
@@ -112,17 +113,18 @@ SignalSource* makeOperationBitBool(
     {
         std::string leftOperand = pOpInstruction.substr(0, opIndexStart);
         std::string rightOperand = pOpInstruction.substr(opIndexEnd);
-        signalSource = new OperationBitBool(pDestinationWire, leftOperand, operation, rightOperand);
+        opBitBool = std::make_unique<OperationBitBool>(
+            pDestinationWire, leftOperand, operation, rightOperand);
     }
 
-    return signalSource;
+    return opBitBool;
 }
 
-SignalSource* makeOperationNot(
+std::unique_ptr<OperationNot> makeOperationNot(
     const std::string& pOpInstruction,
     const std::string& pDestinationWire)
 {
-    SignalSource* signalSource = nullptr;
+    std::unique_ptr<OperationNot> opNot = nullptr;
 
     int opIndexStart = pOpInstruction.find(OP_NOT);
     int opIndexEnd = -1;
@@ -130,17 +132,18 @@ SignalSource* makeOperationNot(
     {
         opIndexEnd = opIndexStart + OP_NOT_LENGTH;
         std::string operand = pOpInstruction.substr(opIndexEnd);
-        signalSource = new OperationNot(pDestinationWire, operand);
+        opNot = std::make_unique<OperationNot>(
+            pDestinationWire, operand);
     }
 
-    return signalSource;
+    return opNot;
 }
 
-SignalSource* makeOperationShift(
+std::unique_ptr<OperationShift> makeOperationShift(
     const std::string& pOpInstruction,
     const std::string& pDestinationWire)
 {
-    SignalSource* signalSource = nullptr;
+    std::unique_ptr<OperationShift> signalSource = nullptr;
 
     int opIndexStart = pOpInstruction.find(OP_LSHIFT);
     int opIndexEnd = std::string::npos;
@@ -165,25 +168,26 @@ SignalSource* makeOperationShift(
         std::string sourceWire = pOpInstruction.substr(0, opIndexStart);
         std::string operand = pOpInstruction.substr(opIndexEnd);
         int displacement = directionFactor * std::stoi(operand);
-        signalSource = new OperationShift(pDestinationWire, sourceWire, displacement);
+        signalSource = std::make_unique<OperationShift>(
+            pDestinationWire, sourceWire, displacement);
     }
 
     return signalSource;
 }
 
-SignalSource* makeRawSignal(
+std::unique_ptr<RawSignal> makeRawSignal(
     const std::string& pOpInstruction,
     const std::string& pDestinationWire)
 {
-    SignalSource* signalSource = nullptr;
+    std::unique_ptr<RawSignal> rawSignal = nullptr;
 
     int signal = -1;
     if (strToInt(pOpInstruction, signal))
     {
-        signalSource = new RawSignal(pDestinationWire, signal);
+        rawSignal = std::make_unique<RawSignal>(pDestinationWire, signal);
     }
 
-    return signalSource;
+    return rawSignal;
 }
 
 bool registerStrNum(
@@ -196,8 +200,9 @@ bool registerStrNum(
     int signalValue = 0;
     if (!isNumRegistered && strToInt(pSomeString, signalValue))
     {
-        SignalSource* signalSource = new RawSignal(pSomeString, signalValue);
-        pWireSignals[pSomeString] = signalSource;
+        std::unique_ptr<RawSignal> signalSource
+            = std::make_unique<RawSignal>(pSomeString, signalValue);
+        pWireSignals[pSomeString] = std::move(signalSource);
         success = true;
     }
 
@@ -212,65 +217,64 @@ void parseInstruction(
     std::string destinationWire = pInstruction.substr(arrowIndex + ARROW_LENGTH);
     std::string opInstruction = pInstruction.substr(0, arrowIndex);
 
-    SignalSource* signalSource = nullptr;
+    std::unique_ptr<SignalSource> signalSource = nullptr;
 
-    signalSource = makeOperationBitBool(opInstruction, destinationWire);
-    if (signalSource != nullptr)
-    {
-        OperationBitBool* opBitBool = (OperationBitBool*) signalSource;
+    { // The scope limits the use of the pointer to the operation.
+        std::unique_ptr<OperationBitBool> opBitBool
+            = makeOperationBitBool(opInstruction, destinationWire);
+        if (opBitBool != nullptr)
+        {
+            registerStrNum(pWireSignals, opBitBool->getLeftWireName());
+            registerStrNum(pWireSignals, opBitBool->getRightWireName());
 
-        registerStrNum(pWireSignals, opBitBool->getLeftWireName());
-        registerStrNum(pWireSignals, opBitBool->getRightWireName());
-
-        pWireSignals[destinationWire] = signalSource;
+            signalSource = std::move(opBitBool);
+        }
     }
 
     if (signalSource == nullptr)
     {
-        signalSource = makeOperationNot(opInstruction, destinationWire);
+        std::unique_ptr<OperationNot> opNot
+            = makeOperationNot(opInstruction, destinationWire);
 
-        if (signalSource != nullptr)
+        if (opNot != nullptr)
         {
-            OperationNot* opNot = (OperationNot*)signalSource;
             registerStrNum(pWireSignals, opNot->getSourceWireName());
 
-            pWireSignals[destinationWire] = signalSource;
+            signalSource = std::move(opNot);
         }
     }
 
     if (signalSource == nullptr)
     {
-        signalSource = makeOperationShift(opInstruction, destinationWire);
+        std::unique_ptr<OperationShift> opShift
+            = makeOperationShift(opInstruction, destinationWire);
 
-        if (signalSource != nullptr)
+        if (opShift != nullptr)
         {
-            OperationShift* opShift = (OperationShift*)signalSource;
             registerStrNum(pWireSignals, opShift->getSourceWireName());
 
-            pWireSignals[destinationWire] = signalSource;
+            signalSource = std::move(opShift);
         }
     }
 
     if (signalSource == nullptr)
     {
-        signalSource = makeRawSignal(opInstruction, destinationWire);
+        std::unique_ptr<RawSignal> rawSignal
+            = makeRawSignal(opInstruction, destinationWire);
 
-        if (signalSource != nullptr)
+        if (rawSignal != nullptr)
         {
-            pWireSignals[destinationWire] = signalSource;
+            signalSource = std::move(rawSignal);
         }
     }
 
     if (signalSource == nullptr)
     {
-        signalSource = new WireToWire(destinationWire, opInstruction);
-        pWireSignals[destinationWire] = signalSource;
+        signalSource
+            = std::make_unique<WireToWire>(destinationWire, opInstruction);
     }
 
-    if (signalSource == nullptr)
-    {
-        std::cout << pInstruction << std::endl;
-    }
+    pWireSignals[destinationWire] = std::move(signalSource);
 }
 
 int main(int argc, char* argv[])
@@ -294,7 +298,8 @@ int main(int argc, char* argv[])
         parseInstruction(instruction, wireSignals);
     }
 
-    SignalSource* sourceOfInterest = wireSignals.at(wireOfInterest);
+    std::shared_ptr<SignalSource> sourceOfInterest
+        = wireSignals.at(wireOfInterest);
     int signalPuzzle1 = sourceOfInterest->calculateValue(wireSignals);
 
     int signalPuzzle2 = -1;
@@ -305,18 +310,10 @@ int main(int argc, char* argv[])
             kv.second->resetValue();
         }
 
-        RawSignal* overriddenSource = new RawSignal(overriddenWire, signalPuzzle1);
-        delete wireSignals.at(overriddenWire);
-        wireSignals[overriddenWire] = overriddenSource;
+        wireSignals[overriddenWire]
+            = std::make_shared<RawSignal>(overriddenWire, signalPuzzle1);
         signalPuzzle2 = sourceOfInterest->calculateValue(wireSignals);
     }
-
-    // Dynamic pointer deletion
-    for (const auto& kv : wireSignals)
-    {
-        delete kv.second;
-    }
-    wireSignals.clear();
 
     std::cout << "Puzzle 1: " << wireOfInterest << " = " << signalPuzzle1 << std::endl;
     std::cout << "Puzzle 2: " << wireOfInterest << " = " << signalPuzzle2 << std::endl;

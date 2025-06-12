@@ -13,7 +13,8 @@ wireSig OperationNot::calculateValue(const wireSigMap& pWireSignals)
 		return getValue();
 	}
 
-	SignalSource* signalSource = pWireSignals.at(getSourceWireName());
+	std::shared_ptr<SignalSource> signalSource
+		= pWireSignals.at(getSourceWireName());
 	int value = signalSource->calculateValue(pWireSignals);
 	value = ~value;
 	setValue(value);

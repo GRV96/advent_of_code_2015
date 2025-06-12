@@ -18,8 +18,8 @@ wireSig OperationBitBool::calculateValue(const wireSigMap& pWireSignals)
 		return getValue();
 	}
 
-	SignalSource* leftSource = pWireSignals.at(_leftWireName);
-	SignalSource* rightSource = pWireSignals.at(_rightWireName);
+	std::shared_ptr<SignalSource> leftSource = pWireSignals.at(_leftWireName);
+	std::shared_ptr<SignalSource> rightSource = pWireSignals.at(_rightWireName);
 	wireSig leftOperand = leftSource->calculateValue(pWireSignals);
 	wireSig rightOperand = rightSource->calculateValue(pWireSignals);
 
