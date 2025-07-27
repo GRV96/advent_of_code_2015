@@ -2,11 +2,11 @@
 
 SignalSource::SignalSource(
 	const std::string& pDestinationWireName,
-	wireSig pValue) :
+	wireSig pValue, bool pCanBeReset) :
 	_destinationWireName(pDestinationWireName),
 	_value(pValue),
 	_isValueSet(true),
-	_canBeReset(true)
+	_canBeReset(pCanBeReset)
 {}
 
 void SignalSource::setValue(wireSig pValue)
