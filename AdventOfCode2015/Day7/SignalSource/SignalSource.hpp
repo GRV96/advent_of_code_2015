@@ -28,11 +28,11 @@ protected:
 public:
 	SignalSource(const std::string& pDestinationWireName);
 
-	const std::string& getDestinationWireName() const;
-
 	virtual wireSig calculateValue(
 		const std::map<std::string,
-		std::shared_ptr<SignalSource>>& pWireSignals) = 0;
+		std::shared_ptr<SignalSource>>&pWireSignals) = 0;
+
+	const std::string& getDestinationWireName() const;
 
 	bool isValueSet() const;
 	void resetValue();

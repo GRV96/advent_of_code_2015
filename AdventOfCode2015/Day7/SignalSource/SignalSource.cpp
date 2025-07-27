@@ -9,6 +9,11 @@ SignalSource::SignalSource(
 	_canBeReset(pCanBeReset)
 {}
 
+wireSig SignalSource::getValue() const
+{
+	return _value;
+}
+
 void SignalSource::setValue(wireSig pValue)
 {
 	_value = pValue;
@@ -22,19 +27,14 @@ SignalSource::SignalSource(const std::string& pDestinationWireName) :
 	_canBeReset(true)
 {}
 
-wireSig SignalSource::getValue() const
+const std::string& SignalSource::getDestinationWireName() const
 {
-	return _value;
+	return _destinationWireName;
 }
 
 bool SignalSource::isValueSet() const
 {
 	return _isValueSet;
-}
-
-const std::string& SignalSource::getDestinationWireName() const
-{
-	return _destinationWireName;
 }
 
 void SignalSource::resetValue()
