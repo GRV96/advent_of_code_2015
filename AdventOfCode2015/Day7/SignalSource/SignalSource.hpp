@@ -14,10 +14,9 @@ private:
 	std::string _destinationWireName;
 	wireSig _value;
 	bool _isValueSet;
-
-protected:
 	bool _canBeReset;
 
+protected:
 	SignalSource(
 		const std::string& pDestinationWireName,
 		wireSig pValue,
