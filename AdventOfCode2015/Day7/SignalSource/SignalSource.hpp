@@ -17,6 +17,7 @@ private:
 	bool _canBeReset;
 
 protected:
+	SignalSource(const std::string& pDestinationWireName);
 	SignalSource(
 		const std::string& pDestinationWireName,
 		wireSig pValue,
@@ -26,8 +27,6 @@ protected:
 	void setValue(wireSig pValue);
 
 public:
-	SignalSource(const std::string& pDestinationWireName);
-
 	virtual wireSig calculateValue(
 		const std::map<std::string,
 		std::shared_ptr<SignalSource>>&pWireSignals) = 0;

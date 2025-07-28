@@ -1,5 +1,12 @@
 #include "SignalSource.hpp"
 
+SignalSource::SignalSource(const std::string& pDestinationWireName) :
+	_destinationWireName(pDestinationWireName),
+	_value(DEFAULT_VALUE),
+	_isValueSet(false),
+	_canBeReset(true)
+{}
+
 SignalSource::SignalSource(
 	const std::string& pDestinationWireName,
 	wireSig pValue,
@@ -20,13 +27,6 @@ void SignalSource::setValue(wireSig pValue)
 	_value = pValue;
 	_isValueSet = true;
 }
-
-SignalSource::SignalSource(const std::string& pDestinationWireName) :
-	_destinationWireName(pDestinationWireName),
-	_value(DEFAULT_VALUE),
-	_isValueSet(false),
-	_canBeReset(true)
-{}
 
 const std::string& SignalSource::getDestinationWireName() const
 {
