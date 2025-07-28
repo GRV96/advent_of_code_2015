@@ -1,8 +1,6 @@
 #include <fstream>
 #include <iostream>
-#include <memory>
 #include <string>
-#include <vector>
 
 #include "SignalSource/SignalSource.hpp"
 #include "SignalSource/OperationBitBool.hpp"
