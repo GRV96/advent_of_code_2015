@@ -1,10 +1,12 @@
 #include "SignalSource.hpp"
 
-SignalSource::SignalSource(const std::string& pDestinationWireName) :
+SignalSource::SignalSource(
+	const std::string& pDestinationWireName,
+	bool pCanBeReset) :
 	_destinationWireName(pDestinationWireName),
 	_value(DEFAULT_VALUE),
 	_isValueSet(false),
-	_canBeReset(true)
+	_canBeReset(pCanBeReset)
 {}
 
 SignalSource::SignalSource(

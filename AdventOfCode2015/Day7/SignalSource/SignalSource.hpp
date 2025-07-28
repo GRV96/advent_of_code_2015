@@ -17,7 +17,9 @@ private:
 	bool _canBeReset;
 
 protected:
-	SignalSource(const std::string& pDestinationWireName);
+	SignalSource(
+		const std::string& pDestinationWireName,
+		bool pCanBeReset = true);
 	SignalSource(
 		const std::string& pDestinationWireName,
 		wireSig pValue,
