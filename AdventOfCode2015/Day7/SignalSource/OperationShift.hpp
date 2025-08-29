@@ -5,7 +5,7 @@
 class OperationShift : public SingleWireSource
 {
 private:
-	int _displacement;
+	int m_displacement;
 
 public:
 	OperationShift(

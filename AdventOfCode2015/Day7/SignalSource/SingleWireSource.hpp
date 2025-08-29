@@ -5,7 +5,7 @@
 class SingleWireSource : public SignalSource
 {
 private:
-	std::string _sourceWireName;
+	std::string m_sourceWireName;
 
 public:
 	SingleWireSource(

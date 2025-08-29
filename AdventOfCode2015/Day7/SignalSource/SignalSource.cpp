@@ -3,48 +3,48 @@
 SignalSource::SignalSource(
 	const std::string& pDestinationWireName,
 	bool pCanBeReset) :
-	_destinationWireName(pDestinationWireName),
-	_value(DEFAULT_VALUE),
-	_isValueSet(false),
-	_canBeReset(pCanBeReset)
+	m_destinationWireName(pDestinationWireName),
+	m_value(DEFAULT_VALUE),
+	m_isValueSet(false),
+	m_canBeReset(pCanBeReset)
 {}
 
 SignalSource::SignalSource(
 	const std::string& pDestinationWireName,
 	wireSig pValue,
 	bool pCanBeReset) :
-	_destinationWireName(pDestinationWireName),
-	_value(pValue),
-	_isValueSet(true),
-	_canBeReset(pCanBeReset)
+	m_destinationWireName(pDestinationWireName),
+	m_value(pValue),
+	m_isValueSet(true),
+	m_canBeReset(pCanBeReset)
 {}
 
 wireSig SignalSource::getValue() const
 {
-	return _value;
+	return m_value;
 }
 
 void SignalSource::setValue(wireSig pValue)
 {
-	_value = pValue;
-	_isValueSet = true;
+	m_value = pValue;
+	m_isValueSet = true;
 }
 
 const std::string& SignalSource::getDestinationWireName() const
 {
-	return _destinationWireName;
+	return m_destinationWireName;
 }
 
 bool SignalSource::isValueSet() const
 {
-	return _isValueSet;
+	return m_isValueSet;
 }
 
 void SignalSource::resetValue()
 {
-	if (_canBeReset)
+	if (m_canBeReset)
 	{
-		_value = DEFAULT_VALUE;
-		_isValueSet = false;
+		m_value = DEFAULT_VALUE;
+		m_isValueSet = false;
 	}
 }

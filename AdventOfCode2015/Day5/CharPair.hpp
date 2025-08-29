@@ -3,11 +3,11 @@
 class CharPair
 {
 private:
-	char _firstChar;
-	char _secondChar;
+	char m_firstChar;
+	char m_secondChar;
 
-	int _startIndex;
-	int _endIndex;
+	int m_startIndex;
+	int m_endIndex;
 
 	void copyValues(const CharPair& pSource);
 

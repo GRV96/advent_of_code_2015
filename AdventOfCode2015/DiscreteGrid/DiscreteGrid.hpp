@@ -8,26 +8,26 @@ template <typename T>
 class DiscreteGrid
 {
 private:
-	std::map<Coordinates, T>* _grid;
+	std::map<Coordinates, T>* m_grid;
 
 public:
 	DiscreteGrid() :
-		_grid(new std::map<Coordinates, T>())
+		m_grid(new std::map<Coordinates, T>())
 	{}
 
 	~DiscreteGrid()
 	{
-		delete _grid;
+		delete m_grid;
 	}
 
 	typename std::map<Coordinates, T>::iterator begin() const
 	{
-		return _grid->begin();
+		return m_grid->begin();
 	}
 
 	typename std::map<Coordinates, T>::iterator end() const
 	{
-		return _grid->end();
+		return m_grid->end();
 	}
 
 	bool get(const Coordinates& pCoordinates, T& pValue) const
@@ -36,7 +36,7 @@ public:
 
 		try
 		{
-			pValue = _grid->at(pCoordinates);
+			pValue = m_grid->at(pCoordinates);
 			wasValueRetrieved = true;
 		}
 		catch (const std::out_of_range& oor)
@@ -49,11 +49,11 @@ public:
 
 	void set(const Coordinates& pCoordinates, const T& pValue)
 	{
-		(*_grid)[pCoordinates] = pValue;
+		(*m_grid)[pCoordinates] = pValue;
 	}
 
 	void set(const Coordinates&& pCoordinates, const T&& pValue)
 	{
-		(*_grid)[pCoordinates] = pValue;
+		(*m_grid)[pCoordinates] = pValue;
 	}
 };

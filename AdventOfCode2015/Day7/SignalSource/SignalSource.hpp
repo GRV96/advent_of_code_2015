@@ -11,10 +11,10 @@ class SignalSource
 private:
 	static const wireSig DEFAULT_VALUE = 0;
 
-	std::string _destinationWireName;
-	wireSig _value;
-	bool _isValueSet;
-	bool _canBeReset;
+	std::string m_destinationWireName;
+	wireSig m_value;
+	bool m_isValueSet;
+	bool m_canBeReset;
 
 protected:
 	SignalSource(
