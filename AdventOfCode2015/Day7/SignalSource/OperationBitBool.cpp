@@ -6,9 +6,9 @@ OperationBitBool::OperationBitBool(
 	const BoolOp& pOperator,
 	const std::string& pRightWireName) :
 	SignalSource(pDestinationWireName),
-	_leftWireName(pLeftWireName),
-	_operator(pOperator),
-	_rightWireName(pRightWireName)
+	m_leftWireName(pLeftWireName),
+	m_operator(pOperator),
+	m_rightWireName(pRightWireName)
 {}
 
 wireSig OperationBitBool::calculateValue(const wireSigMap& pWireSignals)
@@ -18,12 +18,12 @@ wireSig OperationBitBool::calculateValue(const wireSigMap& pWireSignals)
 		return getValue();
 	}
 
-	std::shared_ptr<SignalSource> leftSource = pWireSignals.at(_leftWireName);
-	std::shared_ptr<SignalSource> rightSource = pWireSignals.at(_rightWireName);
+	std::shared_ptr<SignalSource> leftSource = pWireSignals.at(m_leftWireName);
+	std::shared_ptr<SignalSource> rightSource = pWireSignals.at(m_rightWireName);
 	wireSig leftOperand = leftSource->calculateValue(pWireSignals);
 	wireSig rightOperand = rightSource->calculateValue(pWireSignals);
 
-	switch (_operator)
+	switch (m_operator)
 	{
 	case AND:
 		setValue(leftOperand & rightOperand);
@@ -41,15 +41,15 @@ wireSig OperationBitBool::calculateValue(const wireSigMap& pWireSignals)
 
 const std::string& OperationBitBool::getLeftWireName() const
 {
-	return _leftWireName;
+	return m_leftWireName;
 }
 
 BoolOp OperationBitBool::getOperator() const
 {
-	return _operator;
+	return m_operator;
 }
 
 const std::string& OperationBitBool::getRightWireName() const
 {
-	return _rightWireName;
+	return m_rightWireName;
 }

@@ -7,9 +7,9 @@ enum BoolOp {UNDEF=-1, AND, OR, XOR};
 class OperationBitBool : public SignalSource
 {
 private:
-	std::string _leftWireName;
-	BoolOp _operator;
-	std::string _rightWireName;
+	std::string m_leftWireName;
+	BoolOp m_operator;
+	std::string m_rightWireName;
 
 public:
 	OperationBitBool(

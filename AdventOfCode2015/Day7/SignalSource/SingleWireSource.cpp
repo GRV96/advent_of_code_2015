@@ -4,10 +4,10 @@ SingleWireSource::SingleWireSource(
 	const std::string& pDestinationWireName,
 	const std::string& pSourceWireName) :
 	SignalSource(pDestinationWireName),
-	_sourceWireName(pSourceWireName)
+	m_sourceWireName(pSourceWireName)
 {}
 
 const std::string& SingleWireSource::getSourceWireName() const
 {
-	return _sourceWireName;
+	return m_sourceWireName;
 }
