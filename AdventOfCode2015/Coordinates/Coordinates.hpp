@@ -7,8 +7,8 @@ class Coordinates
 	friend std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates);
 
 private:
-	int _x;
-	int _y;
+	int m_x;
+	int m_y;
 
 public:
 	Coordinates();
