@@ -51,9 +51,4 @@ public:
 	{
 		(*m_grid)[pCoordinates] = pValue;
 	}
-
-	void set(const Coordinates&& pCoordinates, const T&& pValue)
-	{
-		(*m_grid)[pCoordinates] = pValue;
-	}
 };
