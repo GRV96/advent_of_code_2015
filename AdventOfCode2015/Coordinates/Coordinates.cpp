@@ -92,13 +92,11 @@ bool Coordinates::operator <(const Coordinates& pOther) const
 
 Coordinates& Coordinates::operator=(Coordinates& pOther)
 {
-	if (this == &pOther)
+	if (this != &pOther)
 	{
-		return *this;
+		m_x = pOther.m_x;
+		m_y = pOther.m_y;
 	}
-
-	m_x = pOther.m_x;
-	m_y = pOther.m_y;
 
 	return *this;
 }
