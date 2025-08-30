@@ -14,7 +14,6 @@ private:
 public:
 	CharPair(char pFirstChar, char pSecondChar, int pStartIndex);
 	CharPair(const CharPair& pOther);
-	CharPair(const CharPair&& pOther) noexcept;
 
 	char getFirstChar() const;
 	char getSecondChar() const;
@@ -34,5 +33,4 @@ public:
 	bool operator <(const CharPair& pOther) const;
 
 	CharPair& operator =(const CharPair& pOther);
-	CharPair& operator =(const CharPair&& pOther) noexcept;
 };

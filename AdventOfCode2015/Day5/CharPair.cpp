@@ -26,13 +26,6 @@ CharPair::CharPair(const CharPair& pOther) :
 	m_endIndex(m_startIndex + 1)
 {}
 
-CharPair::CharPair(const CharPair&& pOther) noexcept :
-	m_firstChar(pOther.m_firstChar),
-	m_secondChar(pOther.m_secondChar),
-	m_startIndex(pOther.m_startIndex),
-	m_endIndex(m_startIndex + 1)
-{}
-
 char CharPair::getFirstChar() const
 {
 	return m_firstChar;
@@ -101,17 +94,6 @@ bool CharPair::operator <(const CharPair& pOther) const
 }
 
 CharPair& CharPair::operator =(const CharPair& pOther)
-{
-	if (this == &pOther)
-	{
-		return *this;
-	}
-
-	copyValues(pOther);
-	return *this;
-}
-
-CharPair& CharPair::operator =(const CharPair&& pOther) noexcept
 {
 	if (this == &pOther)
 	{
