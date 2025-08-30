@@ -90,7 +90,7 @@ bool Coordinates::operator <(const Coordinates& pOther) const
 	return lineCmp < 0 || (lineCmp == 0 && deltaY > 0);
 }
 
-Coordinates& Coordinates::operator=(Coordinates& pOther)
+Coordinates& Coordinates::operator =(Coordinates& pOther)
 {
 	if (this != &pOther)
 	{

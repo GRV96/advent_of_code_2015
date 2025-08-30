@@ -31,7 +31,7 @@ public:
 	bool operator !=(const Coordinates& pOther) const;
 	bool operator <(const Coordinates& pOther) const;
 
-	Coordinates& operator=(Coordinates& pOther);
+	Coordinates& operator =(Coordinates& pOther);
 };
 
 std::ostream& operator <<(std::ostream& os, const Coordinates& pCoordinates);
