@@ -95,11 +95,10 @@ bool CharPair::operator <(const CharPair& pOther) const
 
 CharPair& CharPair::operator =(const CharPair& pOther)
 {
-	if (this == &pOther)
+	if (this != &pOther)
 	{
-		return *this;
+		copyValues(pOther);
 	}
 
-	copyValues(pOther);
 	return *this;
 }
