@@ -17,11 +17,6 @@ Coordinates::Coordinates(const Coordinates& pOther) :
 	m_y(pOther.m_y)
 {}
 
-Coordinates::Coordinates(const Coordinates&& pOther) noexcept :
-	m_x(pOther.m_x),
-	m_y(pOther.m_y)
-{}
-
 int Coordinates::getX() const
 {
 	return m_x;
@@ -96,19 +91,6 @@ bool Coordinates::operator <(const Coordinates& pOther) const
 }
 
 Coordinates& Coordinates::operator=(Coordinates& pOther)
-{
-	if (this == &pOther)
-	{
-		return *this;
-	}
-
-	m_x = pOther.m_x;
-	m_y = pOther.m_y;
-
-	return *this;
-}
-
-Coordinates& Coordinates::operator=(Coordinates&& pOther) noexcept
 {
 	if (this == &pOther)
 	{
